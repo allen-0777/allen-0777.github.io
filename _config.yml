@@ -16,13 +16,13 @@
 title: 立宇的AI BLOG
 email: alleniverson7531@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
+  這是立宇的AI應用部落格，每周會更新最新AI使用心得及AI最新消息
+  網站持續優化中
   Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
-github_username:  jekyll
+github_username:  allen-0777
 
 # Build settings
 markdown: kramdown
