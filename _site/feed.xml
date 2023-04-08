@@ -1,4 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-08T11:32:19+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">立宇的AI BLOG</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2023/04/07/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2023-04-07T19:40:40+08:00</published><updated>2023-04-07T19:40:40+08:00</updated><id>http://localhost:4000/jekyll/update/2023/04/07/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2023/04/07/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-08T16:24:03+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">立宇的AI BLOG</title><subtitle>這是立宇的BLOG，每周會發布最新 `AI使用心得` 、 `AI最新消息` 及 `財經` </subtitle><entry><title type="html">如何部署 Jekyll 部落格</title><link href="http://localhost:4000/jekyll/deployment/blogging/2023/04/08/welcome-to-liyuaiblog.html" rel="alternate" type="text/html" title="如何部署 Jekyll 部落格" /><published>2023-04-08T13:03:00+08:00</published><updated>2023-04-08T13:03:00+08:00</updated><id>http://localhost:4000/jekyll/deployment/blogging/2023/04/08/welcome-to-liyuaiblog</id><content type="html" xml:base="http://localhost:4000/jekyll/deployment/blogging/2023/04/08/welcome-to-liyuaiblog.html"><![CDATA[<p>本文將指導您如何使用 Jekyll 部署一個靜態部落格網站。</p>
+
+<p>#步驟1 : 安裝jekyll
+首先，您需要在您的電腦上安裝 Jekyll。請遵循 <a href="https://jekyllrb.com/docs/installation/">Jekyll 官方文檔</a> 中的說明進行操作。</p>
+
+<p>#步驟2 : 創建jekyll部落格
+在終端中運行以下命令，創建一個名為 <code class="language-plaintext highlighter-rouge">my-blog</code> 的新 Jekyll 部落格：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">jekyll</span> <span class="n">new</span> <span class="n">my</span><span class="o">-</span><span class="n">blog</span></code></pre></figure>
+
+<p>#步驟3: 本地運行 Jekyll 部落格
+進入新創建的部落格文件夾，然後運行以下命令在本地運行 Jekyll 部落格：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="n">my</span><span class="o">-</span><span class="n">blog</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">jekyll</span> <span class="n">serve</span></code></pre></figure>
+
+<p>在瀏覽器中訪問 http://localhost:4000 以查看您的 Jekyll 部落格。</p>
+
+<p>#步驟4 : 將Jekyll 部落格推送到 GitHub
+1.在 GitHub 上創建一個新存儲庫。
+2.初始化本地的 Git 存儲庫：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">init</span></code></pre></figure>
+
+<p>3.添加並提交文件：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="nf">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"Initial commit"</span></code></pre></figure>
+
+<p>4.將本地存儲庫與 GitHub 存儲庫關聯：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">yourusername</span><span class="o">/</span><span class="n">your</span><span class="o">-</span><span class="n">repo</span><span class="o">-</span><span class="nb">name</span><span class="p">.</span><span class="nf">git</span></code></pre></figure>
+
+<p>請將 yourusername 和 your-repo-name 替換為實際的 GitHub 用戶名和存儲庫名稱。
+5.將更改推送到 GitHub 存儲庫：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">main</span></code></pre></figure>
+
+<p>後續輸入username及password即可</p>
+
+<p>#步驟5 : 使用 GitHub Pages 部署 Jekyll 部落格</p>
+
+<p>1.轉到您的 GitHub 存儲庫的設置頁面。</p>
+
+<p>2.在 “GitHub Pages” 部分中，選擇用於部署 GitHub Pages 的分支（通常為 main 或 master）。</p>
+
+<p>3.等待部署完成，然後訪問您的 GitHub Pages 網站。</p>
+
+<p>恭喜</p>]]></content><author><name></name></author><category term="jekyll" /><category term="Deployment" /><category term="Blogging" /><summary type="html"><![CDATA[本文將指導您如何使用 Jekyll 部署一個靜態部落格網站。]]></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2023/04/07/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2023-04-07T19:40:40+08:00</published><updated>2023-04-07T19:40:40+08:00</updated><id>http://localhost:4000/jekyll/update/2023/04/07/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2023/04/07/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
 
 <p>To add new posts, simply add a file in the <code class="language-plaintext highlighter-rouge">_posts</code> directory that follows the convention <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
 

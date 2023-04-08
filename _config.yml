@@ -16,9 +16,8 @@
 title: 立宇的AI BLOG
 email: alleniverson7531@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  這是立宇的AI應用部落格，每周會更新最新AI使用心得及AI最新消息
-  網站持續優化中
-  Google search results) and in your feed.xml site description.
+  這是立宇的BLOG，每周會發布最新 `AI使用心得` 、 `AI最新消息` 及 `財經` 
+  
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
