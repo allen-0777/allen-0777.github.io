@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>如何部署 Jekyll 部落格 | 立宇的AI BLOG</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="如何部署 Jekyll 部落格" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本文將指導您如何使用 Jekyll 部署一個靜態部落格網站。" />
+<meta property="og:description" content="本文將指導您如何使用 Jekyll 部署一個靜態部落格網站。" />
+<link rel="canonical" href="http://localhost:4000/ai%E6%87%89%E7%94%A8/2023/04/08/welcome-to-liyuaiblog.html" />
+<meta property="og:url" content="http://localhost:4000/ai%E6%87%89%E7%94%A8/2023/04/08/welcome-to-liyuaiblog.html" />
+<meta property="og:site_name" content="立宇的AI BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-08T13:03:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="如何部署 Jekyll 部落格" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-04-08T13:03:00+08:00","datePublished":"2023-04-08T13:03:00+08:00","description":"本文將指導您如何使用 Jekyll 部署一個靜態部落格網站。","headline":"如何部署 Jekyll 部落格","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ai%E6%87%89%E7%94%A8/2023/04/08/welcome-to-liyuaiblog.html"},"url":"http://localhost:4000/ai%E6%87%89%E7%94%A8/2023/04/08/welcome-to-liyuaiblog.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="立宇的AI BLOG" /></head>
+<body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/">首頁</a>
+        <a href="/about/">關於</a>
+        <a href="/categories/財經/">財經</a>
+        <a href="/categories/AI應用/">AI 應用</a>
+    </nav>
+</body>
+</html>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">如何部署 Jekyll 部落格</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-04-08T13:03:00+08:00" itemprop="datePublished">Apr 8, 2023
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>本文將指導您如何使用 Jekyll 部署一個靜態部落格網站。</p>
+
+<p>#步驟1 : 安裝jekyll
+首先，您需要在您的電腦上安裝 Jekyll。請遵循 <a href="https://jekyllrb.com/docs/installation/">Jekyll 官方文檔</a> 中的說明進行操作。</p>
+
+<p>#步驟2 : 創建jekyll部落格
+在終端中運行以下命令，創建一個名為 <code class="language-plaintext highlighter-rouge">my-blog</code> 的新 Jekyll 部落格：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">jekyll</span> <span class="n">new</span> <span class="n">my</span><span class="o">-</span><span class="n">blog</span></code></pre></figure>
+
+<p>#步驟3: 本地運行 Jekyll 部落格
+進入新創建的部落格文件夾，然後運行以下命令在本地運行 Jekyll 部落格：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="n">my</span><span class="o">-</span><span class="n">blog</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">bundle</span> <span class="nb">exec</span> <span class="n">jekyll</span> <span class="n">serve</span></code></pre></figure>
+
+<p>在瀏覽器中訪問 http://localhost:4000 以查看您的 Jekyll 部落格。</p>
+
+<p>#步驟4 : 將Jekyll 部落格推送到 GitHub
+1.在 GitHub 上創建一個新存儲庫。
+2.初始化本地的 Git 存儲庫：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">init</span></code></pre></figure>
+
+<p>3.添加並提交文件：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="nf">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"Initial commit"</span></code></pre></figure>
+
+<p>4.將本地存儲庫與 GitHub 存儲庫關聯：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">github</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">yourusername</span><span class="o">/</span><span class="n">your</span><span class="o">-</span><span class="n">repo</span><span class="o">-</span><span class="nb">name</span><span class="p">.</span><span class="nf">git</span></code></pre></figure>
+
+<p>請將 yourusername 和 your-repo-name 替換為實際的 GitHub 用戶名和存儲庫名稱。
+5.將更改推送到 GitHub 存儲庫：</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">main</span></code></pre></figure>
+
+<p>後續輸入username及password即可</p>
+
+<p>#步驟5 : 使用 GitHub Pages 部署 Jekyll 部落格</p>
+
+<p>1.轉到您的 GitHub 存儲庫的設置頁面。</p>
+
+<p>2.在 “GitHub Pages” 部分中，選擇用於部署 GitHub Pages 的分支（通常為 main 或 master）。</p>
+
+<p>3.等待部署完成，然後訪問您的 GitHub Pages 網站。</p>
+
+<p>恭喜</p>
+
+
+  </div><a class="u-url" href="/ai%E6%87%89%E7%94%A8/2023/04/08/welcome-to-liyuaiblog.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">立宇的AI BLOG</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">立宇的AI BLOG</li><li><a class="u-email" href="mailto:alleniverson7531@gmail.com">alleniverson7531@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/allen-0777"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">allen-0777</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>這是立宇的BLOG，每周會發布最新 `AI使用心得` 、 `AI最新消息` 及 `財經` </p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

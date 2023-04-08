@@ -2,7 +2,7 @@
 layout: post
 title:  "如何部署 Jekyll 部落格"
 date:   2023-04-08 13:03:00 +0800
-categories: [jekyll, Deployment, Blogging]
+categories: AI應用
 ---
 
 本文將指導您如何使用 Jekyll 部署一個靜態部落格網站。

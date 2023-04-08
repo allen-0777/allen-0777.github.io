@@ -25,9 +25,16 @@ github_username:  allen-0777
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme:  Minima
 plugins:
   - jekyll-feed
+
+# Header pages configuration
+header_pages:
+  - index.md
+  - about.md
+  - categories/財經.md
+  - categories/AI應用.md
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
