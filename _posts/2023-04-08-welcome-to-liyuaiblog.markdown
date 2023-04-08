@@ -1,24 +1,27 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2023-04-07 19:40:40 +0800
+title:  "Welcome to LiyuAIBlog!"
+date:   2023-04-08 13:03:00 +0800
 categories: jekyll update
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+本文將指導您如何使用 Jekyll 部署一個靜態部落格網站。
+首先，您需要在您的電腦上安裝 Jekyll。請遵循 [Jekyll 官方文檔](https://jekyllrb.com/docs/installation/) 中的說明進行操作。
 
-Jekyll also offers powerful support for code snippets:
-
+在終端中運行以下命令，創建一個名為 `my-blog` 的新 Jekyll 部落格：
 {% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
+jekyll new my-blog
 {% endhighlight %}
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+{% highlight ruby %}
+cd my-blog
+{% endhighlight %}
+
+{% highlight ruby %}
+bundle exec jekyll serve
+{% endhighlight %}
+
+步驟 4：將 Jekyll 部落格推送到 GitHub
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
