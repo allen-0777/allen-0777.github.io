@@ -50,8 +50,11 @@ git push origin main
 後續輸入username及password即可
 
 #步驟5 : 使用 GitHub Pages 部署 Jekyll 部落格
+
 1.轉到您的 GitHub 存儲庫的設置頁面。
+
 2.在 "GitHub Pages" 部分中，選擇用於部署 GitHub Pages 的分支（通常為 main 或 master）。
+
 3.等待部署完成，然後訪問您的 GitHub Pages 網站。
 
 恭喜
