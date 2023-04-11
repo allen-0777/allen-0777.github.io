@@ -20,7 +20,7 @@ ChatGPT是由OpenAI開發的大型語言模型。
 
 讓我們一起來看看如何使用它來創建吸引人的圖文內容！
 
-1. 準備工作
+#1 準備工作
 
 首先到[openai]官網找到ChatGP
 
@@ -28,10 +28,11 @@ ChatGPT是由OpenAI開發的大型語言模型。
 
 之後註冊/登入帳號即可
 
-2. 之後輸入prompt指令
+#2 之後輸入prompt指令
 
 {% highlight ruby %}
-請幫我寫一個圖文並茂的文案，並將內容分段搭配圖片，顯示圖片請透過markdown語法(https://source.unsplash.com/960x640/?<關鍵詞>)
+請幫我寫一個圖文並茂的文案，並將內容分段搭配圖片，
+顯示圖片請透過markdown語法(https://source.unsplash.com/960x640/?<關鍵詞>)
 {% endhighlight %}
 
 ChatGPT就會幫你生成圖文並茂的文案了
