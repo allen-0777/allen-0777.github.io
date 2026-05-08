@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Allen Chan｜AI 工具 × 自動化</title>
+  <meta name="description" content="Allen Chan｜用簡單方式分享 AI 工具、Claude Code、自動化與實戰案例。" />
+  <style>
+    :root {
+      --bg: #080b14;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.13);
+      --text: #f7f8ff;
+      --muted: #aeb6cf;
+      --line: rgba(255,255,255,.14);
+      --accent: #7cf7d4;
+      --accent2: #8aa8ff;
+      --shadow: 0 24px 80px rgba(0,0,0,.42);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(124,247,212,.26), transparent 28%),
+        radial-gradient(circle at 82% 4%, rgba(138,168,255,.22), transparent 30%),
+        radial-gradient(circle at 50% 95%, rgba(255,255,255,.08), transparent 38%),
+        var(--bg);
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .wrap { width: 100%; max-width: 520px; }
+    .hero {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.055));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 28px;
+      display: grid;
+      place-items: center;
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #07101a;
+      box-shadow: 0 16px 42px rgba(124,247,212,.18);
+      margin-bottom: 18px;
+    }
+    h1 { margin: 0; font-size: 30px; letter-spacing: -.04em; }
+    .tagline { margin: 8px 0 0; color: var(--muted); line-height: 1.7; font-size: 15.5px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .chip {
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #e9eeff;
+      background: rgba(255,255,255,.06);
+      font-size: 13px;
+    }
+    .section { margin-top: 18px; }
+    .section-title {
+      margin: 22px 4px 10px;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 16px;
+      margin: 10px 0;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .link:hover { transform: translateY(-2px); background: var(--card-strong); border-color: rgba(124,247,212,.36); }
+    .icon { width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,.1); flex: none; }
+    .link b { display: block; font-size: 15.5px; }
+    .link span { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+      line-height: 1.75;
+      color: #dce3f8;
+      font-size: 14.5px;
+    }
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 10px; }
+    .stat { padding: 14px 10px; text-align: center; border-radius: 18px; border: 1px solid var(--line); background: rgba(255,255,255,.055); }
+    .stat b { display:block; font-size: 20px; color: var(--accent); }
+    .stat span { display:block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+    footer { text-align: center; color: rgba(255,255,255,.44); font-size: 12px; padding: 22px 0 0; }
+    @media (max-width: 420px) { .hero { padding: 22px; } h1 { font-size: 27px; } .stats { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="avatar">A</div>
+      <h1>Allen Chan</h1>
+      <p class="tagline">我把 AI 工具、Claude Code 與自動化流程，整理成一般人也能上手的實戰教學。</p>
+      <div class="chips">
+        <div class="chip">AI 工具分享</div>
+        <div class="chip">Claude Code</div>
+        <div class="chip">自動化工作流</div>
+        <div class="chip">實戰案例</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">主要連結</div>
+      <a class="link" href="https://www.threads.net/@wowscly" target="_blank" rel="noopener">
+        <div class="icon">💬</div>
+        <div><b>Threads｜@wowscly</b><span>用簡單方式分享 AI 工具與實用案例</span></div>
+      </a>
+      <a class="link" href="https://t.me/allenchan0816" target="_blank" rel="noopener">
+        <div class="icon">✈️</div>
+        <div><b>Telegram 聯絡我</b><span>合作、教學、內訓與 AI 自動化需求</span></div>
+      </a>
+      <a class="link" href="#" target="_blank" rel="noopener">
+        <div class="icon">🎬</div>
+        <div><b>YouTube / Instagram</b><span>即將整理更多 AI 工具教學內容</span></div>
+      </a>
+    </section>
+
+    <section class="section">
+      <div class="section-title">我可以幫你</div>
+      <div class="card">
+        <b>把 AI 變成你真的用得上的工作能力。</b><br />
+        從 ChatGPT、Claude Code、Codex、Gemini 到自動化流程，我專注在「普通人看得懂、團隊用得起來、工作真的省時間」的 AI 實戰應用。
+      </div>
+      <a class="link" href="#">
+        <div class="icon">🧠</div>
+        <div><b>AI 工具入門教學</b><span>適合 AI 小白、內容創作者、營運與中小團隊</span></div>
+      </a>
+      <a class="link" href="#">
+        <div class="icon">🤖</div>
+        <div><b>Claude Code / Codex 實戰</b><span>用 AI 輔助寫程式、做工具、做自動化原型</span></div>
+      </a>
+      <a class="link" href="#">
+        <div class="icon">⚙️</div>
+        <div><b>企業內訓與自動化諮詢</b><span>協助團隊建立 AI 工作流與內部使用 SOP</span></div>
+      </a>
+    </section>
+
+    <section class="section">
+      <div class="section-title">內容方向</div>
+      <div class="stats">
+        <div class="stat"><b>AI</b><span>工具研究</span></div>
+        <div class="stat"><b>Flow</b><span>自動化流程</span></div>
+        <div class="stat"><b>Case</b><span>真實案例</span></div>
+      </div>
+    </section>
+
+    <footer>© Allen Chan｜AI Tools × Automation</footer>
+  </main>
+</body>
+</html>
