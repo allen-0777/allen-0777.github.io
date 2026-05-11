@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Claude Code 程式實戰｜Allen Chan</title>
+  <meta name="description" content="不懂寫程式，也能自己做軟體。讓 Claude 成為你的首席工程師，打造自動化原型與工具。" />
+
+  <style>
+    /* 核心變數 - Vercel / 現代科技風 (微調為偏藍色系強調開發者感) */
+    :root {
+      --bg-color: #000000;
+      --bg-surface: #0A0A0A;
+      --text-main: #FFFFFF;
+      --text-muted: #A1A1AA;
+      --accent-start: #3B82F6; /* Blue */
+      --accent-end: #06B6D4;   /* Cyan */
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --card-hover-border: rgba(59, 130, 246, 0.4);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    
+    body {
+      margin: 0; min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main); background-color: var(--bg-color);
+      display: flex; justify-content: center; padding: 40px 24px 80px;
+      position: relative; overflow-x: hidden; line-height: 1.6;
+    }
+
+    /* 背景與網格 */
+    body::before {
+      content: ""; position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 100vw; height: 60vh;
+      background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, rgba(6, 182, 212, 0.05) 40%, transparent 70%);
+      pointer-events: none; z-index: -1;
+    }
+    .grid-bg {
+      position: fixed; inset: 0; background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+      z-index: -2; pointer-events: none;
+    }
+
+    .wrap { width: 100%; max-width: 680px; position: relative; z-index: 1; }
+
+    /* 動畫 */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-up { animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+
+    /* 導航 */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500; margin-bottom: 40px; padding: 8px 16px; border-radius: 99px;
+      background: var(--card-bg); border: 1px solid var(--card-border); backdrop-filter: blur(10px); transition: all 0.2s;
+    }
+    .back-link:hover { color: var(--text-main); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+
+    /* Hero */
+    .hero { text-align: center; margin-bottom: 64px; }
+    .badge {
+      display: inline-block; padding: 6px 16px;
+      background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 99px; font-size: 13px; font-weight: 600; color: #93C5FD; margin-bottom: 20px;
+    }
+    h1 { margin: 0 0 16px; font-size: 36px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.3; }
+    .gradient-text {
+      background: linear-gradient(135deg, #FFFFFF, #9CA3AF);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { color: var(--text-muted); font-size: 16px; margin: 0 auto; max-width: 520px; line-height: 1.7; }
+
+    /* Section 標題 */
+    .section-title {
+      font-size: 24px; font-weight: 700; margin: 0 0 24px 0;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .section { margin-bottom: 64px; }
+
+    /* 毛玻璃卡片 */
+    .glass-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius-md); padding: 24px;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* 痛點 Grid */
+    .pain-grid { display: grid; gap: 16px; }
+    .pain-card {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px; border-radius: var(--radius-md);
+      background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.15);
+    }
+    .pain-card .icon { color: #F87171; flex-shrink: 0; }
+    .pain-card b { display: block; font-size: 15px; color: #FAFAFA; margin-bottom: 4px; }
+    .pain-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+    /* Terminal 風格展示框 */
+    .terminal-box {
+      background: #0D1117; border: 1px solid #30363D; border-radius: 8px; overflow: hidden; margin-bottom: 32px;
+    }
+    .terminal-header {
+      background: #161B22; padding: 10px 16px; display: flex; gap: 8px; align-items: center; border-bottom: 1px solid #30363D;
+    }
+    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .terminal-body { padding: 20px; font-family: monospace; font-size: 14px; color: #E6EDF3; line-height: 1.6; }
+    .terminal-prompt { color: #3FB950; margin-right: 8px; }
+    .terminal-ai { color: #58A6FF; }
+
+    /* 特色 Grid */
+    .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media (max-width: 540px) { .feature-grid { grid-template-columns: 1fr; } }
+    .feature-card { transition: all 0.3s ease; }
+    .feature-card:hover { border-color: rgba(59, 130, 246, 0.3); transform: translateY(-2px); background: rgba(255,255,255,0.05); }
+    .feature-card .icon-box {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(59, 130, 246, 0.15); color: #93C5FD;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+    }
+    .feature-card b { display: block; font-size: 16px; margin-bottom: 8px; color: #FFF; }
+    .feature-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+    /* 學員評價 */
+    .testimonial { padding: 24px; position: relative; }
+    .testimonial::before { content: "”"; position: absolute; top: 10px; right: 20px; font-size: 60px; color: rgba(255,255,255,0.05); font-family: serif; }
+    .testimonial p { font-size: 15px; font-style: italic; color: #E4E4E7; margin: 0 0 16px; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar { width: 40px; height: 40px; border-radius: 50%; background: #27272A; }
+    .reviewer-info b { display: block; font-size: 14px; color: #FFF; }
+    .reviewer-info span { font-size: 12px; color: var(--text-muted); }
+
+    /* 候補名單表單 */
+    .waitlist-card { text-align: center; padding: 48px 24px; border-color: rgba(59, 130, 246, 0.3); background: linear-gradient(180deg, rgba(59,130,246,0.08) 0%, rgba(0,0,0,0) 100%); }
+    .waitlist-card h3 { font-size: 24px; margin: 0 0 12px; color: #FFF; }
+    .waitlist-card p { color: var(--text-muted); font-size: 15px; margin: 0 0 24px; }
+    .form-group { display: flex; max-width: 400px; margin: 0 auto; gap: 8px; }
+    @media (max-width: 480px) { .form-group { flex-direction: column; } }
+    .form-input { flex: 1; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--card-border); background: rgba(255,255,255,0.05); color: #FFF; font-size: 15px; outline: none; transition: border-color 0.2s; }
+    .form-input:focus { border-color: var(--accent-start); }
+    .btn-submit { background: linear-gradient(135deg, var(--accent-start), var(--accent-end)); color: #FFF; border: none; padding: 14px 24px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
+    .btn-submit:hover { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4); transform: translateY(-2px); }
+
+    svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <main class="wrap">
+    
+    <div class="animate-up">
+      <a class="back-link" href="/bio/">
+        <svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        返回首頁
+      </a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero animate-up delay-1">
+      <div class="badge">⌨️ 零基礎開發專案</div>
+      <h1 class="gradient-text">不懂寫程式，也能自己做軟體</h1>
+      <p>讓 Claude 成為你的首席工程師。把你的點子變成可執行的網頁、自動化爬蟲與好用的小工具。</p>
+    </section>
+
+    <!-- Terminal 展示 -->
+    <div class="terminal-box animate-up delay-2">
+      <div class="terminal-header">
+        <div class="terminal-dot" style="background:#FF5F56;"></div>
+        <div class="terminal-dot" style="background:#FFBD2E;"></div>
+        <div class="terminal-dot" style="background:#27C93F;"></div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="terminal-prompt">$</span> Allen: 我需要一個能自動抓取競爭對手電商價格的爬蟲腳本。</div>
+        <div style="margin-top: 12px;"><span class="terminal-prompt terminal-ai">claude:</span> 沒問題！我將為你建立一個 Python 爬蟲。</div>
+        <div style="color: #8B949E;">> Installing requests beautifulsoup4...</div>
+        <div style="color: #8B949E;">> Generating scraper.py...</div>
+        <div style="color: #3FB950; margin-top: 8px;">✓ 腳本已完成。輸入 `python scraper.py` 即可執行。</div>
+      </div>
+    </div>
+
+    <!-- 痛點 -->
+    <section class="section animate-up delay-3" id="pain">
+      <h2 class="section-title">這是不是開發點子時的你？</h2>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg></div>
+          <div><b>外包太貴，自己又不會寫</b><p>腦袋有很多做工具或自動化腳本的想法，但卡在完全不會寫 Code，不知從何下手。</p></div>
+        </div>
+        <div class="pain-card">
+          <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div><b>AI 給了程式碼，但報錯了不會修</b><p>貼上 ChatGPT 給的 Code 卻出現一堆終端機紅字報錯，完全不知道怎麼跟它溝通除錯。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 你會學到什麼 -->
+    <section class="section animate-up delay-3" id="learn">
+      <h2 class="section-title">這堂課，教你當指揮家：</h2>
+      <div class="feature-grid">
+        <div class="glass-card feature-card">
+          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+          <b>基礎環境建置與觀念</b>
+          <p>不用死背語法。帶你安裝必要的編輯器（如 VS Code），並搞懂 AI 寫程式的底層邏輯。</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <b>把「白話文」變成「程式碼」</b>
+          <p>學會如何寫出精準的 PRD（產品需求文件），讓 Claude 一次就寫出你要的軟體骨架。</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2"><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
+          <b>無痛除錯與疊代技巧</b>
+          <p>程式報錯怎麼辦？教你建立「錯誤回報迴圈」，讓 AI 自己找出 Bug 並修復。</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <b>打造自動化原型 (MVP)</b>
+          <p>從零到一完成實戰專案：例如抓取資料的爬蟲、自動排程腳本或一個可互動的小網頁。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 適合誰 -->
+    <section class="section animate-up delay-4" id="target">
+      <h2 class="section-title">誰適合參加？</h2>
+      <div class="glass-card" style="margin-bottom: 12px;">
+        <b style="display: flex; align-items: center; gap: 8px; font-size: 16px; color: #FFF; margin-bottom: 4px;"><svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2" style="color:#3B82F6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>產品企劃與 PM</b>
+        <p style="margin: 0; font-size: 14px; color: var(--text-muted);">不用再等工程師排程。自己用 AI 快速做出可互動的原型 (Prototype) 來測試市場水溫。</p>
+      </div>
+      <div class="glass-card" style="margin-bottom: 12px;">
+        <b style="display: flex; align-items: center; gap: 8px; font-size: 16px; color: #FFF; margin-bottom: 4px;"><svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2" style="color:#3B82F6"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>行銷與營運人員</b>
+        <p style="margin: 0; font-size: 14px; color: var(--text-muted);">想利用 Python 腳本自動抓取競品資料、處理龐大數據庫，解放手動複製貼上的痛苦。</p>
+      </div>
+    </section>
+
+    <!-- 學員評價 -->
+    <section class="section animate-up delay-4" id="testimonials">
+      <h2 class="section-title">實戰心得</h2>
+      <div class="glass-card testimonial">
+        <p>「我連 Python 是什麼都不知道，跟著 Allen 的教學用 Claude 溝通，居然兩天就做出一個每天自動幫我抓 Ptt 關鍵字的爬蟲工具，這在以前根本不敢想！」</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: linear-gradient(135deg, #3B82F6, #1E3A8A);"></div>
+          <div class="reviewer-info"><b>Kevin C.</b><span>電商營運專員</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 候補名單 (Waitlist) 方案設計 -->
+    <section class="section animate-up delay-4" id="pricing">
+      <div class="glass-card waitlist-card">
+        <h3>🚀 線上實戰課程籌備中</h3>
+        <p>本課程目前正在進行內容升級與打磨。<br>加入候補名單，課程上線時將第一時間通知你，並取得「專屬早鳥優惠」。</p>
+        
+        <form class="form-group" action="https://t.me/wowscly_ai" target="_blank">
+          <!-- 這裡可以替換成你的 Google Form 或 ConvertKit 連結 -->
+          <input type="email" class="form-input" placeholder="輸入你的 Email..." required>
+          <button type="submit" class="btn-submit">獲取早鳥通知</button>
+        </form>
+        <div style="margin-top: 16px; font-size: 13px; color: var(--text-muted);">
+          或直接透過 <a href="https://t.me/wowscly_ai" target="_blank" style="color: var(--accent-end); text-decoration: none;">Telegram</a> 聯絡我討論企業包班需求。
+        </div>
+      </div>
+    </section>
+
+    <footer>© Allen Chan • Claude Code & Automation</footer>
+  </main>
+</body>
+</html>
