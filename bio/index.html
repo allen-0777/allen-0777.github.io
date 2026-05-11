@@ -3,22 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Allen Chan｜AI 工具 × 自動化</title>
-  <meta name="description" content="Allen Chan｜用簡單方式分享 AI 工具、Claude Code、自動化與實戰案例。每週更新，全華語圈適用。" />
-
+  <title>20 個 AI 實戰 Prompt 清單｜Allen Chan</title>
+  <meta name="description" content="不需要會寫程式。從 AI 小白到會用 AI 工作，20 個可以直接貼入 Claude 或 ChatGPT 的實戰 Prompt。" />
+  
   <!-- Open Graph -->
-  <meta property="og:title" content="Allen Chan｜AI 工具 × 自動化" />
-  <meta property="og:description" content="我把 AI 工具、Claude Code 與自動化流程，整理成一般人也能上手的實戰教學。" />
-  <meta property="og:image" content="https://allen-0777.github.io/bio/avatar.jpg" />
-  <meta property="og:url" content="https://allen-0777.github.io/bio/" />
+  <meta property="og:title" content="20 個 AI 實戰 Prompt 清單｜Allen Chan" />
+  <meta property="og:description" content="不需要會寫程式。從 AI 小白到會用 AI 工作，20 個可以直接貼入 Claude 或 ChatGPT 的實戰 Prompt。" />
+  <meta property="og:url" content="https://allen-0777.github.io/bio/prompts" />
   <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Allen Chan｜AI 工具 × 自動化" />
-  <meta name="twitter:description" content="我把 AI 工具、Claude Code 與自動化流程，整理成一般人也能上手的實戰教學。" />
-  <meta name="twitter:image" content="https://allen-0777.github.io/bio/avatar.jpg" />
 
   <style>
-    /* 核心變數 - Vercel / 現代科技風 */
+    /* 核心變數 - 與首頁完全同步 */
     :root {
       --bg-color: #000000;
       --bg-surface: #0A0A0A;
@@ -26,23 +21,25 @@
       --text-muted: #A1A1AA;
       
       /* 紫藍漸層色系 */
-      --accent-start: #8B5CF6; /* Violet */
-      --accent-end: #3B82F6;   /* Blue */
+      --accent-start: #8B5CF6;
+      --accent-end: #3B82F6;
       
       --card-bg: rgba(255, 255, 255, 0.03);
       --card-border: rgba(255, 255, 255, 0.1);
       --card-hover-border: rgba(139, 92, 246, 0.4);
       --card-hover-glow: rgba(139, 92, 246, 0.15);
       
+      /* Level 主題色 */
+      --color-l1: #10B981; /* Emerald Green */
+      --color-l2: #3B82F6; /* Blue */
+      --color-l3: #8B5CF6; /* Violet */
+
       --radius-lg: 24px;
       --radius-md: 16px;
       --radius-sm: 8px;
     }
 
-    * { 
-      box-sizing: border-box; 
-      -webkit-font-smoothing: antialiased; 
-    }
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     
     body {
       margin: 0;
@@ -52,48 +49,36 @@
       background-color: var(--bg-color);
       display: flex;
       justify-content: center;
-      padding: 48px 24px;
+      padding: 40px 20px 80px;
       position: relative;
       overflow-x: hidden;
       line-height: 1.6;
     }
 
-    /* 頂部漸層光暈 */
+    /* 背景特效 */
     body::before {
       content: "";
       position: absolute;
-      top: -20%;
-      left: 50%;
+      top: -10%; left: 50%;
       transform: translateX(-50%);
-      width: 100vw;
-      height: 80vh;
-      background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 40%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
+      width: 100vw; height: 60vh;
+      background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.05) 40%, transparent 70%);
+      pointer-events: none; z-index: -1;
     }
-
-    /* 科技感微弱網格 */
     .grid-bg {
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
       mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
       -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
-      z-index: -2;
-      pointer-events: none;
+      z-index: -2; pointer-events: none;
     }
 
-    .wrap {
-      width: 100%;
-      max-width: 520px;
-      position: relative;
-      z-index: 1;
-    }
+    .wrap { width: 100%; max-width: 640px; position: relative; z-index: 1; }
 
-    /* 動畫定義 */
+    /* 動畫 */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
@@ -104,269 +89,235 @@
     .delay-3 { animation-delay: 0.3s; }
     .delay-4 { animation-delay: 0.4s; }
 
-    /* 共用文字與漸層樣式 */
-    .gradient-text {
-      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: transparent;
-    }
-
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      margin-bottom: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .avatar-container {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      margin-bottom: 24px;
-    }
-    /* 頭像外圍發光環 */
-    .avatar-container::before {
-      content: "";
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
-      animation: spin 6s linear infinite;
-      z-index: 0;
-    }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    
-    .avatar {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      background-color: var(--bg-surface);
-      border: 4px solid var(--bg-color);
-      z-index: 1;
-    }
-    
-    h1 { 
-      margin: 0 0 8px; 
-      font-size: 32px; 
-      font-weight: 800; 
-      letter-spacing: -0.03em;
-    }
-    .social-proof {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
+    /* 頂部導航 */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      margin-bottom: 32px;
+      padding: 8px 16px;
+      border-radius: 99px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 99px;
-      font-size: 13px;
-      color: var(--text-main);
       backdrop-filter: blur(10px);
+      transition: all 0.2s;
     }
-    .social-proof span { color: var(--text-muted); }
+    .back-link:hover { 
+      color: var(--text-main); 
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* Hero 區塊 */
+    .hero { text-align: center; margin-bottom: 56px; }
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(59,130,246,0.1));
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 99px;
+      font-size: 13px; font-weight: 600;
+      color: #C4B5FD;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(139,92,246,0.2);
+    }
+    h1 {
+      margin: 0 0 16px;
+      font-size: 36px; font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #FFFFFF, #A1A1AA);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p { color: var(--text-muted); font-size: 16px; margin: 0; line-height: 1.7; }
+
+    /* Level 標題區塊 */
+    .level-section { margin-bottom: 56px; }
+    .level-header {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 24px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
     
-    .tagline { 
-      margin: 20px 0 0; 
-      color: var(--text-muted); 
-      font-size: 16px; 
+    .level-dot {
+      width: 40px; height: 40px; 
+      border-radius: 12px; 
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-weight: 800; font-size: 16px;
+    }
+    .level-dot.l1 { background: rgba(16, 185, 129, 0.15); color: var(--color-l1); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .level-dot.l2 { background: rgba(59, 130, 246, 0.15); color: var(--color-l2); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .level-dot.l3 { background: rgba(139, 92, 246, 0.15); color: var(--color-l3); border: 1px solid rgba(139, 92, 246, 0.3); }
+    
+    .level-header-text { flex: 1; }
+    .level-header-text h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; color: var(--text-main); }
+    .level-header-text p  { margin: 0; font-size: 14px; color: var(--text-muted); }
+    .level-count {
+      font-size: 13px; font-weight: 600;
+      color: var(--text-muted);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px; border-radius: 99px;
+    }
+
+    /* Prompt 卡片 - 毛玻璃設計 */
+    .prompt-card {
+      position: relative;
+      padding: 24px;
+      margin-bottom: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .prompt-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    
+    .prompt-card.l1:hover { border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 8px 30px rgba(16, 185, 129, 0.1); }
+    .prompt-card.l2:hover { border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 8px 30px rgba(59, 130, 246, 0.1); }
+    .prompt-card.l3:hover { border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.1); }
+
+    .prompt-card-top {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .prompt-num {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 10px; border-radius: 6px; flex-shrink: 0;
+    }
+    .l1 .prompt-num { color: var(--color-l1); background: rgba(16, 185, 129, 0.1); }
+    .l2 .prompt-num { color: var(--color-l2); background: rgba(59, 130, 246, 0.1); }
+    .l3 .prompt-num { color: var(--color-l3); background: rgba(139, 92, 246, 0.1); }
+
+    .prompt-title { font-size: 16px; font-weight: 600; color: #FAFAFA; }
+
+    /* 終端機風格 Prompt 區塊 */
+    .prompt-text {
+      font-size: 14.5px;
+      color: #E4E4E7;
+      line-height: 1.7;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .l1 .prompt-text { border-left: 3px solid var(--color-l1); }
+    .l2 .prompt-text { border-left: 3px solid var(--color-l2); }
+    .l3 .prompt-text { border-left: 3px solid var(--color-l3); }
+
+    /* 複製按鈕 */
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-main);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px; font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      font-family: inherit;
+    }
+    .copy-btn:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .copy-btn:active { transform: scale(0.97); }
+    
+    .copy-btn.copied {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34D399;
+    }
+
+    .copy-btn .icon-copy { display: inline; }
+    .copy-btn .icon-check { display: none; }
+    .copy-btn.copied .icon-copy { display: none; }
+    .copy-btn.copied .icon-check { display: inline; }
+
+    /* Level 3 提示框 */
+    .level3-note {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px 20px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: var(--radius-md);
+      font-size: 14.5px; color: #DDD6FE;
+      margin-bottom: 24px;
       line-height: 1.6;
     }
 
-    .chips { 
-      display: flex; 
-      flex-wrap: wrap; 
-      justify-content: center; 
-      gap: 8px; 
-      margin-top: 24px; 
-    }
-    .chip {
-      padding: 6px 14px;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 99px;
-      background: rgba(255,255,255,0.02);
-      color: #E4E4E7;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    /* Section 共用 */
-    .section { margin-top: 36px; }
-    .section-title {
-      margin: 0 0 16px 4px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    /* 高級毛玻璃卡片基底 */
-    .glass-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      width: 100%;
-      padding: 20px;
-      margin-bottom: 12px;
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* CTA 區塊 */
+    .cta-section {
+      text-align: center;
+      padding: 48px 24px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.05));
+      margin-top: 32px;
       position: relative;
       overflow: hidden;
     }
-    
-    /* 互動卡片 Hover 效果 */
-    a.glass-card:hover {
-      border-color: var(--card-hover-border);
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 8px 32px var(--card-hover-glow);
-      transform: translateY(-2px);
-    }
-
-    /* 重點 CTA (Free Prompt) */
-    .cta-card {
-      background: linear-gradient(rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05));
-      border: 1px solid rgba(139, 92, 246, 0.4);
-    }
-    .cta-card::after {
+    .cta-section::after {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%);
       background-size: 200% 200%;
-      animation: shimmer 3s infinite linear;
+      animation: shimmer 4s infinite linear;
       pointer-events: none;
     }
     @keyframes shimmer {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
-    .cta-card:hover {
-      border-color: var(--accent-start);
-      box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
-    }
 
-    /* Icon 容器 */
-    .icon-box { 
-      width: 44px; height: 44px; 
-      border-radius: 12px; 
-      display: flex; align-items: center; justify-content: center; 
-      background: rgba(255, 255, 255, 0.05); 
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      flex-shrink: 0; 
-      transition: all 0.3s ease;
+    .cta-section h3 { margin: 0 0 12px; font-size: 24px; font-weight: 700; color: #FFF; }
+    .cta-section p  { margin: 0 0 32px; color: var(--text-muted); font-size: 15px; }
+    .cta-btns { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+    
+    .cta-btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: #fff; text-decoration: none;
+      padding: 14px 32px; border-radius: 12px;
+      font-size: 15px; font-weight: 600;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
     }
-    .cta-card .icon-box {
-      background: rgba(139, 92, 246, 0.2);
-      color: var(--accent-start);
-      border-color: rgba(139, 92, 246, 0.3);
-    }
-    a.glass-card:hover .icon-box {
-      background: var(--text-main);
-      color: var(--bg-color);
+    .cta-btn-primary:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5); 
     }
     
-    .icon-box svg { width: 22px; height: 22px; stroke-width: 1.5; }
+    .cta-btn-secondary {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 14px; transition: color 0.2s;
+    }
+    .cta-btn-secondary:hover { color: var(--text-main); }
 
-    /* 文字內容 */
-    .content-box { flex: 1; }
-    .glass-card b { 
-      display: block; 
-      font-size: 15px; 
-      font-weight: 600; 
-      margin-bottom: 4px;
-      color: #FAFAFA;
+    footer {
+      text-align: center; color: #52525B;
+      font-size: 13px; padding: 48px 0 0; font-weight: 500;
     }
-    .cta-card b {
-      background: linear-gradient(135deg, #fff, #a1a1aa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .glass-card span { 
-      display: block; 
-      color: var(--text-muted); 
-      font-size: 13.5px; 
-      line-height: 1.5; 
-    }
-
-    /* 純文字介紹區塊 */
-    .intro-block {
-      padding: 24px;
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-      color: var(--text-muted);
-      font-size: 14.5px;
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-    .intro-block b { 
-      color: var(--text-main); 
-      font-size: 16px; 
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    /* 數據/方向統計區塊 */
-    .stats-grid { 
-      display: grid; 
-      grid-template-columns: repeat(3, 1fr); 
-      gap: 12px; 
-      margin-bottom: 16px; 
-    }
-    .stat-pill { 
-      padding: 16px 12px; 
-      text-align: center; 
-      border-radius: var(--radius-md); 
-      border: 1px solid var(--card-border); 
-      background: var(--card-bg); 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .stat-pill b { 
-      font-size: 18px; 
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--text-main), var(--text-muted));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .stat-pill span { 
-      margin-top: 4px; 
-      color: var(--text-muted); 
-      font-size: 12px; 
-      font-weight: 500;
-    }
-
-    footer { 
-      text-align: center; 
-      color: #52525B; 
-      font-size: 13px; 
-      padding: 48px 0 24px; 
-      font-weight: 500;
-    }
-
-    /* SVG 基礎樣式 */
     svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
 
-    @media (max-width: 480px) { 
-      body { padding: 32px 16px; }
+    @media (max-width: 480px) {
+      body { padding: 32px 16px 60px; }
       h1 { font-size: 28px; }
-      .stats-grid { gap: 8px; }
-      .stat-pill { padding: 12px 8px; }
-      .stat-pill b { font-size: 16px; }
+      .level-header-text h2 { font-size: 16px; }
+      .prompt-card { padding: 16px; }
+      .cta-section { padding: 32px 20px; }
     }
   </style>
 </head>
@@ -374,137 +325,223 @@
   <div class="grid-bg"></div>
   <main class="wrap">
 
-    <!-- Hero Section -->
-    <section class="hero animate-up">
-      <div class="avatar-container">
-        <!-- 確保同層目錄下有 avatar.jpg -->
-        <img class="avatar" src="avatar.jpg" alt="Allen Chan" onerror="this.src='https://ui-avatars.com/api/?name=Allen+Chan&background=0A0A0A&color=FFFFFF&size=220'" />
-      </div>
-      <h1 class="gradient-text">Allen Chan</h1>
-      <div class="social-proof">
-        <svg width="14" height="14" viewBox="0 0 24 24" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        @wowscly <span>· 8.8K 粉絲</span>
-      </div>
-      <p class="tagline">我把 AI 工具、Claude Code 與自動化流程，<br>整理成一般人也能上手的實戰教學。</p>
-      
-      <div class="chips">
-        <div class="chip">AI 工具</div>
-        <div class="chip">Claude Code</div>
-        <div class="chip">自動化工作流</div>
-        <div class="chip">Obsidian 知識管理</div>
-      </div>
-    </section>
-
-    <!-- 主推 Lead Magnet (CTA) -->
-    <section class="section animate-up delay-1">
-      <a class="glass-card cta-card" href="/bio/prompts">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <div class="content-box">
-          <b>領取 20 個 AI 實戰 Prompt 清單</b>
-          <span style="color: rgba(255,255,255,0.7);">免費取用，無需登入即可查看</span>
-        </div>
-        <!-- 箭頭 Icon -->
-        <div style="opacity: 0.5; align-self: center;">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </div>
+    <div class="animate-up">
+      <a class="back-link" href="/bio/">
+        <svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        返回首頁
       </a>
-    </section>
+    </div>
 
-    <!-- 社交與聯繫連結 -->
-    <section class="section animate-up delay-2">
-      <h2 class="section-title">Connect</h2>
-      <a class="glass-card" href="https://t.me/wowscly_ai" target="_blank" rel="noopener noreferrer">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-        </div>
-        <div class="content-box">
-          <b>Telegram 聯絡我</b>
-          <span>合作、教學、內訓與 AI 自動化需求</span>
-        </div>
-      </a>
-      <a class="glass-card" href="https://www.threads.net/@wowscly" target="_blank" rel="noopener noreferrer">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M15 12.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M15 12.5v1.5a2.5 2.5 0 1 0 5 0v-2a8 8 0 1 0-8 8"/></svg>
-        </div>
-        <div class="content-box">
-          <b>Threads｜@wowscly</b>
-          <span>用簡單方式分享 AI 工具與實用案例</span>
-        </div>
-      </a>
-    </section>
+    <div class="hero animate-up delay-1">
+      <div class="badge">🎁 免費取用</div>
+      <h1>20 個 AI 實戰 Prompt 清單</h1>
+      <p>不需要會寫程式。每個 Prompt 直接貼入 Claude 或 ChatGPT 就能用。<br>從日常工作到打造 AI 工具，三個層級，循序漸進。</p>
+    </div>
 
-    <!-- 服務介紹 -->
-    <section class="section animate-up delay-3">
-      <h2 class="section-title">Services</h2>
-      <div class="intro-block">
-        <b>把 AI 變成你真的用得上的工作能力。</b>
-        從 ChatGPT、Claude Code、Codex、Gemini 到自動化流程，我專注在「普通人看得懂、團隊用得起來、工作真的省時間」的 AI 實戰應用。
+    <!-- Level 1 -->
+    <section class="level-section animate-up delay-2">
+      <div class="level-header">
+        <div class="level-dot l1">L1</div>
+        <div class="level-header-text">
+          <h2>讓 AI 幫你處理日常工作</h2>
+          <p>不需寫程式，直接貼入對話框就能用</p>
+        </div>
+        <div class="level-count">#01–07</div>
       </div>
-      
-      <div class="glass-card">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
-        </div>
-        <div class="content-box">
-          <b>AI 工具入門教學</b>
-          <span>適合 AI 小白、內容創作者、營運與中小團隊</span>
-        </div>
-      </div>
-      
-      <div class="glass-card">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
-        <div class="content-box">
-          <b>Claude Code / 程式實戰</b>
-          <span>用 AI 輔助寫程式、做工具、打造自動化原型</span>
-        </div>
-      </div>
-      
-      <a class="glass-card" href="https://t.me/wowscly_ai" target="_blank" rel="noopener noreferrer">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        </div>
-        <div class="content-box">
-          <b>企業內訓與自動化諮詢</b>
-          <span>協助團隊建立 AI 工作流與內部使用 SOP</span>
-        </div>
-      </a>
-    </section>
 
-    <!-- 內容方向 -->
-    <section class="section animate-up delay-4">
-      <h2 class="section-title">Focus</h2>
-      <div class="stats-grid">
-        <div class="stat-pill"><b>AI</b><span>工具研究</span></div>
-        <div class="stat-pill"><b>Flow</b><span>自動化</span></div>
-        <div class="stat-pill"><b>Note</b><span>知識管理</span></div>
+      <div class="prompt-card l1">
+        <div class="prompt-card-top"><span class="prompt-num">#01</span><span class="prompt-title">整理凌亂的 Excel 資料</span></div>
+        <div class="prompt-text">我有一份 Excel，裡面有很多重複、格式不一的資料。請告訴我用 AI 最快的整理方式，以及我可以直接複製貼上給你的方式。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)">
+          <svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="btn-label">複製 Prompt</span>
+        </button>
       </div>
-      
-      <div class="glass-card">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        </div>
-        <div class="content-box">
-          <b>Obsidian 內容整理系統</b>
-          <span>把靈感、筆記與專案，整理成可搜尋、可複用、持續產出的個人知識庫。</span>
-        </div>
+
+      <div class="prompt-card l1">
+        <div class="prompt-card-top"><span class="prompt-num">#02</span><span class="prompt-title">自動做每週工作報表</span></div>
+        <div class="prompt-text">我每週要整理以下工作項目：[列出你做了什麼]。請幫我把這些整理成一份清楚的週報，適合給主管看。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)">
+          <svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="btn-label">複製 Prompt</span>
+        </button>
       </div>
-      
-      <div class="glass-card">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-        </div>
-        <div class="content-box">
-          <b>從筆記到內容產出</b>
-          <span>用 Obsidian 建立選題庫、Prompt 庫與發布流程，讓日常學習變成穩定資產。</span>
-        </div>
+
+      <div class="prompt-card l1">
+        <div class="prompt-card-top"><span class="prompt-num">#03</span><span class="prompt-title">把會議記錄變成行動清單</span></div>
+        <div class="prompt-text">以下是我的會議記錄：[貼上內容]。請幫我整理成：決議事項、各自負責人、截止日期的清單格式。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l1">
+        <div class="prompt-card-top"><span class="prompt-num">#04</span><span class="prompt-title">寫一封不尷尬的商業 Email</span></div>
+        <div class="prompt-text">我需要寫信給[對象]，目的是[說明情境]。語氣要[正式/友善]，請幫我起草一封，不要太長。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l1">
+        <div class="prompt-card-top"><span class="prompt-num">#05</span><span class="prompt-title">把一大篇文章濃縮成重點</span></div>
+        <div class="prompt-text">以下是一篇文章/報告：[貼上內容]。請用 5 個重點摘要，每點一行，適合不懂技術的人閱讀。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l1">
+        <div class="prompt-card-top"><span class="prompt-num">#06</span><span class="prompt-title">設計一份問卷或表單</span></div>
+        <div class="prompt-text">我想收集[目的的資料]，對象是[誰]。請幫我設計 10 個問卷題目，包含問法和選項建議。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l1">
+        <div class="prompt-card-top"><span class="prompt-num">#07</span><span class="prompt-title">讓 AI 幫你做決策分析</span></div>
+        <div class="prompt-text">我正在考慮[描述選項A vs 選項B]。請幫我用優缺點表格分析，並給出你的建議理由。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
       </div>
     </section>
 
-    <footer>© Allen Chan • AI Tools & Automation</footer>
+    <!-- Level 2 -->
+    <section class="level-section animate-up delay-3">
+      <div class="level-header">
+        <div class="level-dot l2">L2</div>
+        <div class="level-header-text">
+          <h2>把重複的事情變成自動化流程</h2>
+          <p>用 Zapier / Make / AI 工具，不需要寫程式</p>
+        </div>
+        <div class="level-count">#08–13</div>
+      </div>
+
+      <div class="prompt-card l2">
+        <div class="prompt-card-top"><span class="prompt-num">#08</span><span class="prompt-title">設計你的工作 SOP</span></div>
+        <div class="prompt-text">我每週要做[重複任務]，大概需要[時間]。請幫我把這個流程整理成 SOP，並標出哪些步驟可以用 AI 工具取代。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l2">
+        <div class="prompt-card-top"><span class="prompt-num">#09</span><span class="prompt-title">用 AI 規劃 Zapier / Make 自動化</span></div>
+        <div class="prompt-text">我想自動化這個流程：[描述：當 A 發生 → 執行 B]。請建議我用什麼工具可以設定，不需要寫程式的那種。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l2">
+        <div class="prompt-card-top"><span class="prompt-num">#10</span><span class="prompt-title">批次產生社群內容</span></div>
+        <div class="prompt-text">以下是我這週的主題：[列出 3–5 個主題]。請幫我每個主題產出一則適合 Threads/Instagram 的貼文草稿，風格要輕鬆。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l2">
+        <div class="prompt-card-top"><span class="prompt-num">#11</span><span class="prompt-title">建立你的 Prompt 模板庫</span></div>
+        <div class="prompt-text">我常常需要請 AI 幫我[描述任務]。請幫我設計一個可以重複使用的 Prompt 模板，讓我每次只要填入變數就能用。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l2">
+        <div class="prompt-card-top"><span class="prompt-num">#12</span><span class="prompt-title">把手動流程變成 AI 輔助流程</span></div>
+        <div class="prompt-text">我目前的工作流程是：[描述每個手動步驟]。請告訴我哪些步驟可以用 Claude/ChatGPT 處理，以及怎麼接起來。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l2">
+        <div class="prompt-card-top"><span class="prompt-num">#13</span><span class="prompt-title">整合多個資料來源做摘要</span></div>
+        <div class="prompt-text">我每天需要看以下幾個來源的資訊：[列出來源]。請設計一個方法，讓我可以用 AI 快速整理成每日摘要。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+    </section>
+
+    <!-- Level 3 -->
+    <section class="level-section animate-up delay-4">
+      <div class="level-header">
+        <div class="level-dot l3">L3</div>
+        <div class="level-header-text">
+          <h2>做出自己的 AI 工具或專案</h2>
+          <p>用 Claude Code 一步步打造，不需要寫程式背景</p>
+        </div>
+        <div class="level-count">#14–20</div>
+      </div>
+      
+      <div class="level3-note">
+        <svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <div>👋 這一關比你想的容易——有 AI 陪你一步步做，你只需要負責「說清楚你要什麼」就好。</div>
+      </div>
+
+      <div class="prompt-card l3">
+        <div class="prompt-card-top"><span class="prompt-num">#14</span><span class="prompt-title">用 Claude Code 做第一個小工具</span></div>
+        <div class="prompt-text">我想做一個工具，功能是[描述]，使用對象是[誰]。我完全不會寫程式，請你用最簡單的方式帶我一步步完成。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l3">
+        <div class="prompt-card-top"><span class="prompt-num">#15</span><span class="prompt-title">設計你的 AI 產品原型</span></div>
+        <div class="prompt-text">我有一個 AI 產品想法：[描述]。請幫我規劃：目標用戶、核心功能、最小可行版本（MVP）長什麼樣。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l3">
+        <div class="prompt-card-top"><span class="prompt-num">#16</span><span class="prompt-title">建立個人 AI 知識庫</span></div>
+        <div class="prompt-text">我想把[主題]的相關知識整理成一個可以問答的知識庫。請告訴我最簡單的實作方法，以及需要哪些工具。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l3">
+        <div class="prompt-card-top"><span class="prompt-num">#17</span><span class="prompt-title">讓 AI 幫你做每日工作覆盤</span></div>
+        <div class="prompt-text">今天我完成了：[列出事項]。請分析哪件事做得好、哪件事可以改進、明天要優先處理什麼。回覆要簡短，3 點以內。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l3">
+        <div class="prompt-card-top"><span class="prompt-num">#18</span><span class="prompt-title">把你的 SOP 變成一個對話工具</span></div>
+        <div class="prompt-text">以下是我整理好的工作 SOP：[貼上]。請幫我把這個 SOP 轉換成一個 AI 助手可以執行的指令格式。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l3">
+        <div class="prompt-card-top"><span class="prompt-num">#19</span><span class="prompt-title">規劃 AI 專案的 30 天行動計畫</span></div>
+        <div class="prompt-text">我想做[描述你的專案]。請幫我規劃第一個月要完成什麼，每週有具體目標，適合下班後兼職進行。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+
+      <div class="prompt-card l3">
+        <div class="prompt-card-top"><span class="prompt-num">#20</span><span class="prompt-title">用 AI 測試你的產品想法</span></div>
+        <div class="prompt-text">我的產品想法是：[描述]。請扮演我的[目標客戶]，對這個想法提出 5 個最可能的疑問或抗拒點，幫我在推出前就想清楚。</div>
+        <button class="copy-btn" onclick="copyPrompt(this)"><svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span class="btn-label">複製 Prompt</span></button>
+      </div>
+    </section>
+
+    <!-- CTA 區塊 -->
+    <section class="cta-section animate-up delay-4">
+      <h3>想要更多 AI 工具資源？</h3>
+      <p>每週分享 AI 工具、實戰案例與自動化技巧</p>
+      <div class="cta-btns">
+        <a class="cta-btn-primary" href="https://t.me/wowscly_ai" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          加入 Telegram 獲取最新資訊
+        </a>
+        <a class="cta-btn-secondary" href="https://www.threads.net/@wowscly" target="_blank" rel="noopener noreferrer">
+          追蹤 Threads @wowscly →
+        </a>
+      </div>
+    </section>
+
+    <footer>© Allen Chan • AI Tools &amp; Automation</footer>
   </main>
+
+  <script>
+    // 優化後的複製邏輯：自動鎖定對應卡片內的 .prompt-text
+    function copyPrompt(btn) {
+      const card = btn.closest('.prompt-card');
+      const promptText = card.querySelector('.prompt-text').textContent;
+      const label = btn.querySelector('.btn-label');
+      
+      navigator.clipboard.writeText(promptText).then(() => {
+        btn.classList.add('copied');
+        label.textContent = '已複製！';
+        
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          label.textContent = '複製 Prompt';
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>
