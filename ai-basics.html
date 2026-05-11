@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>AI 工具入門教學｜Allen Chan</title>
+  <meta name="description" content="把 AI 變成你真的用得上的工作能力。適合 AI 小白、內容創作者、營運與中小團隊的實戰指南。" />
+
+  <style>
+    /* 核心變數 - Vercel / 現代科技風 */
+    :root {
+      --bg-color: #000000;
+      --bg-surface: #0A0A0A;
+      --text-main: #FFFFFF;
+      --text-muted: #A1A1AA;
+      --accent-start: #8B5CF6; /* Violet */
+      --accent-end: #3B82F6;   /* Blue */
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --card-hover-border: rgba(139, 92, 246, 0.4);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background-color: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      padding: 40px 24px 80px;
+      position: relative;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* 背景與網格 */
+    body::before {
+      content: "";
+      position: absolute;
+      top: -10%; left: 50%;
+      transform: translateX(-50%);
+      width: 100vw; height: 60vh;
+      background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 40%, transparent 70%);
+      pointer-events: none; z-index: -1;
+    }
+    .grid-bg {
+      position: fixed; inset: 0; background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+      z-index: -2; pointer-events: none;
+    }
+
+    .wrap { width: 100%; max-width: 680px; position: relative; z-index: 1; }
+
+    /* 動畫 */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-up { animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+
+    /* 導航 */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500; margin-bottom: 40px;
+      padding: 8px 16px; border-radius: 99px;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px); transition: all 0.2s;
+    }
+    .back-link:hover { color: var(--text-main); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+
+    /* Hero */
+    .hero { text-align: center; margin-bottom: 64px; }
+    .badge {
+      display: inline-block; padding: 6px 16px;
+      background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 99px; font-size: 13px; font-weight: 600; color: #C4B5FD;
+      margin-bottom: 20px;
+    }
+    h1 { margin: 0 0 16px; font-size: 36px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.3; }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--text-main), #A1A1AA);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { color: var(--text-muted); font-size: 16px; margin: 0 auto; max-width: 500px; line-height: 1.7; }
+
+    /* Section 標題 */
+    .section-title {
+      font-size: 24px; font-weight: 700; margin: 0 0 24px 0;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .section { margin-bottom: 64px; }
+
+    /* 毛玻璃卡片 (共用) */
+    .glass-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius-md); padding: 24px;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* 痛點 Grid */
+    .pain-grid { display: grid; gap: 16px; }
+    .pain-card {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px; border-radius: var(--radius-md);
+      background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.15);
+    }
+    .pain-card .icon { color: #F87171; flex-shrink: 0; }
+    .pain-card b { display: block; font-size: 15px; color: #FAFAFA; margin-bottom: 4px; }
+    .pain-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+    /* 內容 Grid (你會學到什麼 / 適合誰) */
+    .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media (max-width: 540px) { .feature-grid { grid-template-columns: 1fr; } }
+    .feature-card { transition: all 0.3s ease; }
+    .feature-card:hover { border-color: rgba(139, 92, 246, 0.3); transform: translateY(-2px); background: rgba(255,255,255,0.05); }
+    .feature-card .icon-box {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(139, 92, 246, 0.15); color: #C4B5FD;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+    }
+    .feature-card b { display: block; font-size: 16px; margin-bottom: 8px; color: #FFF; }
+    .feature-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+    /* 學員評價 */
+    .testimonial { padding: 24px; position: relative; }
+    .testimonial::before { content: "”"; position: absolute; top: 10px; right: 20px; font-size: 60px; color: rgba(255,255,255,0.05); font-family: serif; }
+    .testimonial p { font-size: 15px; font-style: italic; color: #E4E4E7; margin: 0 0 16px; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar { width: 40px; height: 40px; border-radius: 50%; background: #27272A; }
+    .reviewer-info b { display: block; font-size: 14px; color: #FFF; }
+    .reviewer-info span { font-size: 12px; color: var(--text-muted); }
+
+    /* 收費方案 */
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    @media (max-width: 540px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .price-card { display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .price-card.popular { border-color: var(--accent-start); box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15); }
+    .popular-tag { position: absolute; top: 0; left: 0; right: 0; background: linear-gradient(90deg, var(--accent-start), var(--accent-end)); color: #FFF; font-size: 11px; font-weight: 700; text-align: center; padding: 4px 0; letter-spacing: 0.1em; }
+    .price-card h3 { margin: 16px 0 8px; font-size: 18px; color: #FFF; }
+    .price-amount { font-size: 32px; font-weight: 800; color: #FFF; margin-bottom: 16px; }
+    .price-amount span { font-size: 14px; color: var(--text-muted); font-weight: 400; }
+    .price-features { list-style: none; padding: 0; margin: 0 0 24px; flex: 1; }
+    .price-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #D1D5DB; margin-bottom: 12px; }
+    .price-features svg { color: #34D399; flex-shrink: 0; }
+    
+    /* 按鈕 */
+    .btn {
+      display: block; width: 100%; text-align: center; padding: 14px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--accent-start), var(--accent-end)); color: #FFF; }
+    .btn-primary:hover { box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4); transform: translateY(-2px); }
+    .btn-secondary { background: rgba(255,255,255,0.05); color: #FFF; border: 1px solid rgba(255,255,255,0.1); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+
+    svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <main class="wrap">
+    
+    <div class="animate-up">
+      <a class="back-link" href="/bio/">
+        <svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        返回首頁
+      </a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero animate-up delay-1">
+      <div class="badge">🧠 AI 實戰工作坊</div>
+      <h1 class="gradient-text">把 AI 變成你真正用得上的工作能力</h1>
+      <p>不再只是跟 ChatGPT 聊天。專為職場人設計的 AI 導入指南，讓你少加點班，多點時間生活。</p>
+    </section>
+
+    <!-- 痛點 -->
+    <section class="section animate-up delay-2" id="pain">
+      <h2 class="section-title">你是不是也遇到這些問題？</h2>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
+          <div><b>看了很多新聞，但不知從何下手</b><p>知道 AI 很強大，但面對空白對話框，卻不知道該叫它幫你做什麼實際的工作。</p></div>
+        </div>
+        <div class="pain-card">
+          <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
+          <div><b>Prompt 寫半天，AI 都在講廢話</b><p>想要一篇行銷文案，出來的卻是滿滿「AI 味」的罐頭文，最後還是得自己重寫。</p></div>
+        </div>
+        <div class="pain-card">
+          <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
+          <div><b>被繁瑣的日常報表淹沒</b><p>每天都在整理重複的 Excel 數據、回覆差不多的 Email，覺得時間都被吃掉了。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 你會學到什麼 -->
+    <section class="section animate-up delay-3" id="learn">
+      <h2 class="section-title">在這堂課，你會學到：</h2>
+      <div class="feature-grid">
+        <div class="glass-card feature-card">
+          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <b>精準 Prompt 公式框架</b>
+          <p>掌握一套萬用的對話邏輯，讓 AI 瞬間理解你的需求，不再給出籠統的廢話。</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <b>高產值內容創作流</b>
+          <p>結合 Obsidian 等筆記工具，用 AI 快速產出社群貼文、企劃案與報告草稿。</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+          <b>資料處理與分析實戰</b>
+          <p>用 Claude 或 ChatGPT 處理混亂的 Excel、分析會議記錄，一鍵產出重點摘要。</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="icon-box"><svg width="20" height="20" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 8-4.5 4.5 1.5 1.5"/><path d="M12 8v8"/></svg></div>
+          <b>打造專屬 AI 助手</b>
+          <p>不寫程式，透過指令設定，製作一個專門幫你寫 Email 或想靈感的分身機器人。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 適合誰 -->
+    <section class="section animate-up delay-3" id="target">
+      <h2 class="section-title">這門課適合誰？</h2>
+      <div class="glass-card" style="margin-bottom: 16px; display: flex; align-items: center; gap: 16px;">
+        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 50%;"><span style="font-size: 24px;">🌱</span></div>
+        <div><b style="display: block; color: #FFF; font-size: 16px;">AI 小白與職場新人</b><span style="color: var(--text-muted); font-size: 14px;">想要快速建立職場優勢，用 AI 提升辦事效率。</span></div>
+      </div>
+      <div class="glass-card" style="margin-bottom: 16px; display: flex; align-items: center; gap: 16px;">
+        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 50%;"><span style="font-size: 24px;">✍️</span></div>
+        <div><b style="display: block; color: #FFF; font-size: 16px;">內容創作者 / 行銷企劃</b><span style="color: var(--text-muted); font-size: 14px;">需要大量發想靈感、寫作、分析競品資料的人。</span></div>
+      </div>
+      <div class="glass-card" style="display: flex; align-items: center; gap: 16px;">
+        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 50%;"><span style="font-size: 24px;">🏢</span></div>
+        <div><b style="display: block; color: #FFF; font-size: 16px;">中小團隊營運主管</b><span style="color: var(--text-muted); font-size: 14px;">想幫團隊導入 AI 流程，建立內部自動化 SOP，節省人力成本。</span></div>
+      </div>
+    </section>
+
+    <!-- 學員評價 -->
+    <section class="section animate-up delay-4" id="testimonials">
+      <h2 class="section-title">學員真實回饋</h2>
+      <div class="glass-card testimonial" style="margin-bottom: 16px;">
+        <p>「以前每週都要花 3 個小時把各部門的亂碼資料整理成週報，學會 AI 處理技巧後，現在我只要 10 分鐘就能搞定，太神奇了！」</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: linear-gradient(135deg, #10B981, #047857);"></div>
+          <div class="reviewer-info"><b>Sarah L.</b><span>行銷企劃主任</span></div>
+        </div>
+      </div>
+      <div class="glass-card testimonial">
+        <p>「一直抓不到寫 Prompt 的訣竅。Allen 的公式框架非常落地，我現在做社群文案跟活動企劃，產能至少提升了兩倍以上。」</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background: linear-gradient(135deg, #F59E0B, #B45309);"></div>
+          <div class="reviewer-info"><b>David W.</b><span>自由創作者</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 收費方案 -->
+    <section class="section animate-up delay-4" id="pricing">
+      <h2 class="section-title">開始你的 AI 升級之旅</h2>
+      <div class="pricing-grid">
+        
+        <!-- 方案 A -->
+        <div class="glass-card price-card">
+          <h3>單次實戰諮詢</h3>
+          <div class="price-amount">NT$ 800 <span>/ 1小時</span></div>
+          <ul class="price-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 針對你的工作痛點拆解</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 客製化專屬 Prompt 教學</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 工具選擇與導入建議</li>
+          </ul>
+          <a href="https://t.me/wowscly_ai" target="_blank" class="btn btn-secondary">預約諮詢時間</a>
+        </div>
+
+        <!-- 方案 B -->
+        <div class="glass-card price-card popular">
+          <div class="popular-tag">最受歡迎</div>
+          <h3 style="margin-top: 24px;">企業內訓 / 團隊工作坊</h3>
+          <div class="price-amount">專案報價</div>
+          <ul class="price-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 3 小時完整實戰工作坊</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 協助建立團隊專屬 SOP 庫</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 提供後續一個月線上問答</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 適合 5-20 人中小團隊</li>
+          </ul>
+          <a href="https://t.me/wowscly_ai" target="_blank" class="btn btn-primary">與我聯繫討論需求</a>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>© Allen Chan • AI Tools & Automation</footer>
+  </main>
+</body>
+</html>
