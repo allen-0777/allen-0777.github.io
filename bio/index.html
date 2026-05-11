@@ -193,6 +193,28 @@
       font-size: 13px;
       font-weight: 500;
     }
+    .social-btns {
+      display: flex;
+      gap: 14px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .social-btn {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .social-btn img { width: 30px; height: 30px; object-fit: contain; }
+    .social-btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(139, 92, 246, 0.6);
+      box-shadow: 0 0 18px rgba(139, 92, 246, 0.35);
+    }
 
     /* Section 共用 */
     .section { margin-top: 36px; }
@@ -394,6 +416,14 @@
         <div class="chip">自動化工作流</div>
         <div class="chip">Obsidian 知識管理</div>
       </div>
+      <div class="social-btns">
+        <a class="social-btn" href="https://t.me/wowscly_ai" target="_blank" rel="noopener noreferrer">
+          <img src="telegram.png" alt="Telegram" />
+        </a>
+        <a class="social-btn" href="https://www.threads.net/@wowscly" target="_blank" rel="noopener noreferrer">
+          <img src="threads.png" alt="Threads" style="width:36px;height:36px;" />
+        </a>
+      </div>
     </section>
 
     <!-- 主推 Lead Magnet (CTA) -->
@@ -413,31 +443,8 @@
       </a>
     </section>
 
-    <!-- 社交與聯繫連結 -->
-    <section class="section animate-up delay-2">
-      <h2 class="section-title">Connect</h2>
-      <a class="glass-card" href="https://t.me/wowscly_ai" target="_blank" rel="noopener noreferrer">
-        <div class="icon-box">
-          <img src="telegram.png" alt="Telegram" />
-        </div>
-        <div class="content-box">
-          <b>Telegram 聯絡我</b>
-          <span>合作、教學、內訓與 AI 自動化需求</span>
-        </div>
-      </a>
-      <a class="glass-card" href="https://www.threads.net/@wowscly" target="_blank" rel="noopener noreferrer">
-        <div class="icon-box">
-          <img src="threads.png" alt="Threads" style="width:38px;height:38px;" />
-        </div>
-        <div class="content-box">
-          <b>Threads｜@wowscly</b>
-          <span>用簡單方式分享 AI 工具與實用案例</span>
-        </div>
-      </a>
-    </section>
-
     <!-- 服務介紹 -->
-    <section class="section animate-up delay-3">
+    <section class="section animate-up delay-2">
       <h2 class="section-title">Services</h2>
       <div class="intro-block">
         <b>把 AI 變成你真的用得上的工作能力。</b>
@@ -476,7 +483,7 @@
     </section>
 
     <!-- 內容方向 -->
-    <section class="section animate-up delay-4">
+    <section class="section animate-up delay-3">
       <h2 class="section-title">Focus</h2>
       <div class="stats-grid">
         <div class="stat-pill"><b>AI</b><span>工具研究</span></div>
