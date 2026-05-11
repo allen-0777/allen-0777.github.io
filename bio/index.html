@@ -177,6 +177,38 @@
       line-height: 1.6;
     }
 
+    /* 精簡版社群圖示 (極簡線條 Linkbio Style) */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .social-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 2px solid var(--text-muted);
+      color: var(--text-muted);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .social-btn:hover {
+      border-color: var(--text-main);
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 24px var(--card-hover-glow);
+      transform: translateY(-3px);
+    }
+    .social-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2; /* 確保圖示線條粗細與外框一致 */
+    }
+
     .chips { 
       display: flex; 
       flex-wrap: wrap; 
@@ -192,28 +224,6 @@
       color: #E4E4E7;
       font-size: 13px;
       font-weight: 500;
-    }
-    .social-btns {
-      display: flex;
-      gap: 14px;
-      margin-top: 20px;
-      justify-content: center;
-    }
-    .social-btn {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .social-btn img { width: 30px; height: 30px; object-fit: contain; }
-    .social-btn:hover {
-      transform: translateY(-3px);
-      border-color: rgba(139, 92, 246, 0.6);
-      box-shadow: 0 0 18px rgba(139, 92, 246, 0.35);
     }
 
     /* Section 共用 */
@@ -289,7 +299,6 @@
       flex-shrink: 0; 
       transition: all 0.3s ease;
     }
-    .icon-box img { width: 30px; height: 30px; object-fit: contain;    }
     .cta-card .icon-box {
       background: rgba(139, 92, 246, 0.2);
       color: var(--accent-start);
@@ -301,6 +310,7 @@
     }
     
     .icon-box svg { width: 22px; height: 22px; stroke-width: 1.5; }
+    .icon-box img { width: 30px; height: 30px; object-fit: contain; }
 
     /* 文字內容 */
     .content-box { flex: 1; }
@@ -410,19 +420,21 @@
       </div>
       <p class="tagline">我把 AI 工具、Claude Code 與自動化流程，<br>整理成一般人也能上手的實戰教學。</p>
       
+      <!-- 精簡版社群圖示 -->
+      <div class="social-links">
+        <a href="https://t.me/wowscly_ai" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Telegram">
+          <svg viewBox="0 0 24 24"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg>
+        </a>
+        <a href="https://www.threads.net/@wowscly" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Threads">
+          <svg viewBox="0 0 24 24"><path d="M19 7.5c-1.333 -3 -3.667 -4.5 -7 -4.5c-5 0 -8 2.5 -8 9s3.5 9 8 9s7 -3 7 -5s-1 -5 -7 -5c-2.5 0 -3 1.25 -3 2.5c0 1.5 1 2.5 2.5 2.5c2.5 0 3.5 -1.5 3.5 -5s-2 -4 -3 -4s-1.833 .333 -2.5 1" /></svg>
+        </a>
+      </div>
+
       <div class="chips">
         <div class="chip">AI 工具</div>
         <div class="chip">Claude Code</div>
         <div class="chip">自動化工作流</div>
         <div class="chip">Obsidian 知識管理</div>
-      </div>
-      <div class="social-btns">
-        <a class="social-btn" href="https://t.me/wowscly_ai" target="_blank" rel="noopener noreferrer">
-          <img src="telegram.png" alt="Telegram" />
-        </a>
-        <a class="social-btn" href="https://www.threads.net/@wowscly" target="_blank" rel="noopener noreferrer">
-          <img src="threads.png" alt="Threads" style="width:36px;height:36px;" />
-        </a>
       </div>
     </section>
 
