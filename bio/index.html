@@ -4,7 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Allen Chan｜AI 工具 × 自動化</title>
-  <meta name="description" content="Allen Chan｜用簡單方式分享 AI 工具、Claude Code、自動化與實戰案例。" />
+  <meta name="description" content="Allen Chan｜用簡單方式分享 AI 工具、Claude Code、自動化與實戰案例。每週更新，全華語圈適用。" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Allen Chan｜AI 工具 × 自動化" />
+  <meta property="og:description" content="我把 AI 工具、Claude Code 與自動化流程，整理成一般人也能上手的實戰教學。" />
+  <meta property="og:image" content="https://allen-0777.github.io/bio/avatar.jpg" />
+  <meta property="og:url" content="https://allen-0777.github.io/bio/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Allen Chan｜AI 工具 × 自動化" />
+  <meta name="twitter:description" content="我把 AI 工具、Claude Code 與自動化流程，整理成一般人也能上手的實戰教學。" />
+  <meta name="twitter:image" content="https://allen-0777.github.io/bio/avatar.jpg" />
+
   <style>
     :root {
       --bg: #080b14;
@@ -33,6 +45,8 @@
       padding: 32px 16px;
     }
     .wrap { width: 100%; max-width: 520px; }
+
+    /* Hero */
     .hero {
       padding: 28px;
       border: 1px solid var(--line);
@@ -51,7 +65,16 @@
       display: block;
     }
     h1 { margin: 0; font-size: 30px; letter-spacing: -.04em; }
-    .tagline { margin: 8px 0 0; color: var(--muted); line-height: 1.7; font-size: 15.5px; }
+    .social-proof {
+      margin: 6px 0 0;
+      font-size: 13.5px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .social-proof span { color: var(--muted); }
+    .tagline { margin: 10px 0 0; color: var(--muted); line-height: 1.7; font-size: 15.5px; }
     .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
     .chip {
       padding: 8px 11px;
@@ -61,6 +84,8 @@
       background: rgba(255,255,255,.06);
       font-size: 13px;
     }
+
+    /* Sections */
     .section { margin-top: 18px; }
     .section-title {
       margin: 22px 4px 10px;
@@ -69,6 +94,8 @@
       letter-spacing: .08em;
       text-transform: uppercase;
     }
+
+    /* Clickable links */
     .link {
       display: flex;
       align-items: center;
@@ -84,22 +111,45 @@
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
     }
     .link:hover { transform: translateY(-2px); background: var(--card-strong); border-color: rgba(124,247,212,.36); }
-    .link-inactive {
+
+    /* Lead magnet — accent highlight */
+    .link-cta {
       display: flex;
       align-items: center;
       gap: 14px;
       width: 100%;
       padding: 16px;
       margin: 10px 0;
-      color: var(--text);
+      color: #07101a;
+      text-decoration: none;
+      border: 1px solid rgba(124,247,212,.5);
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 8px 28px rgba(124,247,212,.18);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .link-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(124,247,212,.28); }
+    .link-cta .icon { background: rgba(0,0,0,.15); }
+    .link-cta b, .link-cta span { color: #07101a; }
+
+    /* Info cards (no link) */
+    .info-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      width: 100%;
+      padding: 16px;
+      margin: 10px 0;
       border: 1px solid var(--line);
       border-radius: 18px;
       background: var(--card);
-      opacity: 0.6;
     }
+
     .icon { width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,.1); flex: none; }
-    .link b, .link-inactive b { display: block; font-size: 15.5px; }
-    .link span, .link-inactive span { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .link b, .link-cta b, .info-card b { display: block; font-size: 15.5px; }
+    .link span, .link-cta span, .info-card span { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .info-card span { color: var(--muted); }
+
     .card {
       padding: 18px;
       border: 1px solid var(--line);
@@ -119,9 +169,12 @@
 </head>
 <body>
   <main class="wrap">
+
+    <!-- Hero -->
     <section class="hero">
       <img class="avatar" src="avatar.jpg" alt="Allen Chan" />
       <h1>Allen Chan</h1>
+      <div class="social-proof">@wowscly <span>·</span> <span>8.8K Threads 粉絲</span></div>
       <p class="tagline">我把 AI 工具、Claude Code 與自動化流程，整理成一般人也能上手的實戰教學。</p>
       <div class="chips">
         <div class="chip">AI 工具分享</div>
@@ -132,6 +185,15 @@
       </div>
     </section>
 
+    <!-- Lead Magnet -->
+    <section class="section">
+      <a class="link-cta" href="https://t.me/allenchan0816" target="_blank" rel="noopener">
+        <div class="icon">🎁</div>
+        <div><b>免費領取：20 個 Claude Prompt 清單</b><span>私訊 Telegram 即可領取，馬上可用</span></div>
+      </a>
+    </section>
+
+    <!-- Main Links -->
     <section class="section">
       <div class="section-title">主要連結</div>
       <a class="link" href="https://t.me/allenchan0816" target="_blank" rel="noopener">
@@ -144,17 +206,18 @@
       </a>
     </section>
 
+    <!-- Services -->
     <section class="section">
       <div class="section-title">我可以幫你</div>
       <div class="card">
         <b>把 AI 變成你真的用得上的工作能力。</b><br />
         從 ChatGPT、Claude Code、Codex、Gemini 到自動化流程，我專注在「普通人看得懂、團隊用得起來、工作真的省時間」的 AI 實戰應用。
       </div>
-      <div class="link-inactive">
+      <div class="info-card">
         <div class="icon">🧠</div>
         <div><b>AI 工具入門教學</b><span>適合 AI 小白、內容創作者、營運與中小團隊</span></div>
       </div>
-      <div class="link-inactive">
+      <div class="info-card">
         <div class="icon">🤖</div>
         <div><b>Claude Code / Codex 實戰</b><span>用 AI 輔助寫程式、做工具、做自動化原型</span></div>
       </div>
@@ -164,6 +227,7 @@
       </a>
     </section>
 
+    <!-- Content Direction -->
     <section class="section">
       <div class="section-title">內容方向</div>
       <div class="stats">
@@ -171,30 +235,14 @@
         <div class="stat"><b>Flow</b><span>自動化流程</span></div>
         <div class="stat"><b>Note</b><span>Obsidian 整理</span></div>
       </div>
-      <div class="link-inactive">
+      <div class="info-card">
         <div class="icon">🗂️</div>
         <div><b>Obsidian 內容整理系統</b><span>把靈感、AI 工具筆記、Threads 素材與專案知識，整理成可搜尋、可複用、可持續產出的個人知識庫</span></div>
       </div>
-      <div class="link-inactive">
+      <div class="info-card">
         <div class="icon">✍️</div>
         <div><b>從筆記到內容產出</b><span>用 Obsidian 建立選題庫、Prompt 庫、案例庫與發布流程，讓日常學習變成穩定內容資產</span></div>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="section-title">GitHub 專案整理</div>
-      <a class="link" href="https://github.com/allen-0777" target="_blank" rel="noopener">
-        <div class="icon">🐙</div>
-        <div><b>GitHub｜allen-0777</b><span>保留我自己的內容資產與實作紀錄，包含 AI 工具研究、社群內容整理與個人網站</span></div>
-      </a>
-      <a class="link" href="https://github.com/allen-0777/wowscly-social" target="_blank" rel="noopener">
-        <div class="icon">📈</div>
-        <div><b>wowscly-social</b><span>Threads / 社群內容報告與 AI 工具研究，協助把每日觀察整理成可發布的內容素材</span></div>
-      </a>
-      <a class="link" href="https://github.com/allen-0777/allen-0777.github.io" target="_blank" rel="noopener">
-        <div class="icon">🌐</div>
-        <div><b>個人網站 / Bio Link</b><span>我的 GitHub Pages 個人簡介頁，整理 AI 工具、自動化、Obsidian 與內容方向</span></div>
-      </a>
     </section>
 
     <footer>© Allen Chan｜AI Tools × Automation</footer>
