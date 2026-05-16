@@ -1,4 +1,4 @@
-name: Auto-update Threads followers
+name: Auto-update Threads + Instagram followers
 
 on:
   schedule:
@@ -15,10 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch Threads followers & refresh token
-        id: threads
+      - name: Fetch followers & refresh tokens
+        id: fetch
         env:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
         run: |
           set +e
           python3 scripts/update_followers.py > /tmp/stdout.log 2>/tmp/stderr.log
@@ -30,18 +31,26 @@ jobs:
             exit $EXIT_CODE
           fi
           NEW_TOKEN=$(grep '^NEW_TOKEN=' /tmp/stdout.log | cut -d= -f2-)
+          NEW_IG_TOKEN=$(grep '^NEW_IG_TOKEN=' /tmp/stdout.log | cut -d= -f2-)
           echo "new_token=$NEW_TOKEN" >> "$GITHUB_OUTPUT"
+          echo "new_ig_token=$NEW_IG_TOKEN" >> "$GITHUB_OUTPUT"
 
       - name: Refresh THREADS_ACCESS_TOKEN secret
-        if: steps.threads.outputs.new_token != ''
+        if: steps.fetch.outputs.new_token != ''
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
-          NEW_TOKEN: ${{ steps.threads.outputs.new_token }}
+          NEW_TOKEN: ${{ steps.fetch.outputs.new_token }}
           REPO: ${{ github.repository }}
-        run: |
-          gh secret set THREADS_ACCESS_TOKEN \
-            --body "$NEW_TOKEN" \
-            --repo "$REPO"
+        run: gh secret set THREADS_ACCESS_TOKEN --body "$NEW_TOKEN" --repo "$REPO"
+        continue-on-error: true
+
+      - name: Refresh INSTAGRAM_ACCESS_TOKEN secret
+        if: steps.fetch.outputs.new_ig_token != ''
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          NEW_IG_TOKEN: ${{ steps.fetch.outputs.new_ig_token }}
+          REPO: ${{ github.repository }}
+        run: gh secret set INSTAGRAM_ACCESS_TOKEN --body "$NEW_IG_TOKEN" --repo "$REPO"
         continue-on-error: true
 
       - name: Commit & push if count changed
