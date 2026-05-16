@@ -3,10 +3,10 @@ name: Auto-update Threads followers
 on:
   schedule:
     - cron: '0 2 * * *'   # 每天 UTC 02:00 = 台灣時間 10:00
-  workflow_dispatch:        # 允許手動在 GitHub 網頁觸發
+  workflow_dispatch:
 
 permissions:
-  contents: write           # 允許 commit & push
+  contents: write
 
 jobs:
   update:
@@ -20,14 +20,18 @@ jobs:
         env:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
         run: |
-          OUTPUT=$(python3 scripts/update_followers.py 2>/tmp/stderr_log)
-          cat /tmp/stderr_log
-          echo "$OUTPUT"
-          NEW_TOKEN=$(echo "$OUTPUT" | grep '^NEW_TOKEN=' | cut -d= -f2-)
+          set +e
+          python3 scripts/update_followers.py > /tmp/stdout.log 2>/tmp/stderr.log
+          EXIT_CODE=$?
+          echo "=== stderr ===" && cat /tmp/stderr.log
+          echo "=== stdout ===" && cat /tmp/stdout.log
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "Script failed with exit code $EXIT_CODE"
+            exit $EXIT_CODE
+          fi
+          NEW_TOKEN=$(grep '^NEW_TOKEN=' /tmp/stdout.log | cut -d= -f2-)
           echo "new_token=$NEW_TOKEN" >> "$GITHUB_OUTPUT"
 
-      # 自動將刷新後的 token 存回 Secret（需要 GH_PAT）
-      # 如果不設定 GH_PAT，token 仍有 60 天有效期，但不會自動延長
       - name: Refresh THREADS_ACCESS_TOKEN secret
         if: steps.threads.outputs.new_token != ''
         env:
@@ -38,7 +42,7 @@ jobs:
           gh secret set THREADS_ACCESS_TOKEN \
             --body "$NEW_TOKEN" \
             --repo "$REPO"
-        continue-on-error: true   # GH_PAT 未設定時不影響主流程
+        continue-on-error: true
 
       - name: Commit & push if count changed
         run: |
