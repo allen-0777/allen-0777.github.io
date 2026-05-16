@@ -1,0 +1,49 @@
+name: Auto-update Threads followers
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 每天 UTC 02:00 = 台灣時間 10:00
+  workflow_dispatch:        # 允許手動在 GitHub 網頁觸發
+
+permissions:
+  contents: write           # 允許 commit & push
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Threads followers & refresh token
+        id: threads
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+        run: |
+          OUTPUT=$(python3 scripts/update_followers.py 2>/tmp/stderr_log)
+          cat /tmp/stderr_log
+          echo "$OUTPUT"
+          NEW_TOKEN=$(echo "$OUTPUT" | grep '^NEW_TOKEN=' | cut -d= -f2-)
+          echo "new_token=$NEW_TOKEN" >> "$GITHUB_OUTPUT"
+
+      # 自動將刷新後的 token 存回 Secret（需要 GH_PAT）
+      # 如果不設定 GH_PAT，token 仍有 60 天有效期，但不會自動延長
+      - name: Refresh THREADS_ACCESS_TOKEN secret
+        if: steps.threads.outputs.new_token != ''
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          NEW_TOKEN: ${{ steps.threads.outputs.new_token }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh secret set THREADS_ACCESS_TOKEN \
+            --body "$NEW_TOKEN" \
+            --repo "$REPO"
+        continue-on-error: true   # GH_PAT 未設定時不影響主流程
+
+      - name: Commit & push if count changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bio/index.html
+          git diff --staged --quiet && echo "Nothing to commit" || \
+            (git commit -m "chore: auto-update followers [skip ci]" && git push)
