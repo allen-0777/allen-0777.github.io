@@ -47,9 +47,20 @@ params = urllib.parse.urlencode({
 })
 data = api_get(f"https://graph.threads.net/v1.0/me/threads_insights?{params}")
 
-# Response: {"data":[{"name":"followers_count","values":[{"value":N,"end_time":"..."},...]},...]}
-values = data['data'][0]['values']
-count  = int(values[-1]['value'])          # 最新一天的數值
+# Debug: print full response to see actual structure
+print(f"API response: {json.dumps(data, indent=2)}", file=sys.stderr)
+
+# Try to extract count from different possible response shapes
+entry = data['data'][0]
+if 'values' in entry:
+    count = int(entry['values'][-1]['value'])
+elif 'total_value' in entry:
+    count = int(entry['total_value']['value'])
+elif 'value' in entry:
+    count = int(entry['value'])
+else:
+    print(f"Unknown response shape: {entry}", file=sys.stderr)
+    sys.exit(1)
 display = f"{count / 1000:.1f}K" if count >= 1000 else str(count)
 print(f"Followers: {count} ({display})", file=sys.stderr)
 
