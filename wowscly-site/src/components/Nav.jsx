@@ -14,7 +14,7 @@ export default function Nav() {
       <a href="#hero" className={styles.logo}>WOWSCLY</a>
       <div className={styles.links}>
         {links.map((l) => (
-          <a key={l} href={`#${l.toLowerCase()}`}>{l}</a>
+          <a key={l} href={`#${l.toLowerCase()}`} className={styles.link}>{l}</a>
         ))}
       </div>
     </motion.nav>

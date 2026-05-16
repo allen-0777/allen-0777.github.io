@@ -6,8 +6,6 @@
   border-radius: 20px;
   position: relative;
   overflow: hidden;
-  transition: box-shadow var(--dur-sm) var(--ease-out),
-              transform var(--dur-sm) var(--ease-out);
 }
 
 .card::before {
@@ -15,9 +13,4 @@
   position: absolute; inset: 0; border-radius: 20px;
   background: linear-gradient(135deg, rgba(0,210,255,0.05) 0%, transparent 50%);
   pointer-events: none;
-}
-
-.card:hover {
-  box-shadow: var(--glow-hover);
-  transform: translateY(-4px) scale(1.01);
 }
