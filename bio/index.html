@@ -24,10 +24,13 @@
       --bg-surface: #0A0A0A;
       --text-main: #FFFFFF;
       --text-muted: #A1A1AA;
-      
+
       /* 紫藍漸層色系 */
       --accent-start: #8B5CF6; /* Violet */
       --accent-end: #3B82F6;   /* Blue */
+
+      /* Kinematic parallax offset (set by JS) */
+      --parallax-y: 0px;
       
       --card-bg: rgba(255, 255, 255, 0.03);
       --card-border: rgba(255, 255, 255, 0.1);
@@ -64,7 +67,8 @@
       position: absolute;
       top: -20%;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(var(--parallax-y, 0px));
+      will-change: transform;
       width: 100vw;
       height: 80vh;
       background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 40%, transparent 70%);
@@ -394,16 +398,70 @@
     /* SVG 基礎樣式 */
     svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
 
-    @media (max-width: 480px) { 
+    @media (max-width: 480px) {
       body { padding: 32px 16px; }
       h1 { font-size: 28px; }
       .stats-grid { gap: 8px; }
       .stat-pill { padding: 12px 8px; }
       .stat-pill b { font-size: 16px; }
     }
+
+    /* ── Kinematic Scroll Animations ────────────────────────── */
+
+    /* Scroll progress bar (CSS Scroll Timeline) */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 2px; z-index: 999;
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      transform-origin: 0%;
+      transform: scaleX(0);
+      animation: grow-progress linear both;
+      animation-timeline: scroll();
+    }
+    @keyframes grow-progress { to { transform: scaleX(1); } }
+
+    /* Scroll-driven element entrance (CSS scroll-driven) */
+    @keyframes reveal-up {
+      from { opacity: 0; transform: translateY(40px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+    .scroll-reveal {
+      animation: reveal-up 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 28%;
+    }
+
+    /* Fallback: Intersection Observer (older browsers) */
+    @supports not (animation-timeline: view()) {
+      .scroll-reveal {
+        opacity: 0;
+        transform: translateY(40px) scale(0.97);
+        transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .scroll-reveal.revealed {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      .scroll-reveal.sr-d1 { transition-delay: 70ms; }
+      .scroll-reveal.sr-d2 { transition-delay: 140ms; }
+    }
+
+    /* Respect reduced-motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-progress { display: none; }
+      .scroll-reveal {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"></div>
   <div class="grid-bg"></div>
   <main class="wrap">
 
@@ -416,7 +474,7 @@
       <h1 class="gradient-text">Allen Chan</h1>
       <div class="social-proof">
         <svg width="14" height="14" viewBox="0 0 24 24" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        @wowscly <span>· 8.8K 粉絲</span>
+        @wowscly <span>· <span class="follower-count" data-target="8800">8.8K</span> 粉絲</span>
       </div>
       <p class="tagline">我把 AI 工具、Claude Code 與自動化流程，<br>整理成一般人也能上手的實戰教學。</p>
       
@@ -456,14 +514,14 @@
     </section>
 
     <!-- 服務介紹 -->
-    <section class="section animate-up delay-2">
-      <h2 class="section-title">Services</h2>
-      <div class="intro-block">
+    <section class="section">
+      <h2 class="section-title scroll-reveal">Services</h2>
+      <div class="intro-block scroll-reveal">
         <b>把 AI 變成你真的用得上的工作能力。</b>
         從 ChatGPT、Claude Code、Codex、Gemini 到自動化流程，我專注在「普通人看得懂、團隊用得起來、工作真的省時間」的 AI 實戰應用。
       </div>
       
-      <a class="glass-card" href="ai-basics.html">
+      <a class="glass-card scroll-reveal" href="ai-basics.html">
         <div class="icon-box">
           <svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
         </div>
@@ -473,7 +531,7 @@
         </div>
       </a>
 
-      <a class="glass-card" href="claude-code.html">
+      <a class="glass-card scroll-reveal sr-d1" href="claude-code.html">
         <div class="icon-box">
           <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
@@ -483,7 +541,7 @@
         </div>
       </a>
       
-      <a class="glass-card" href="https://t.me/allenchan0816" target="_blank" rel="noopener noreferrer">
+      <a class="glass-card scroll-reveal sr-d2" href="https://t.me/allenchan0816" target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </div>
@@ -495,15 +553,15 @@
     </section>
 
     <!-- 內容方向 -->
-    <section class="section animate-up delay-3">
-      <h2 class="section-title">Focus</h2>
-      <div class="stats-grid">
+    <section class="section">
+      <h2 class="section-title scroll-reveal">Focus</h2>
+      <div class="stats-grid scroll-reveal">
         <div class="stat-pill"><b>AI</b><span>工具研究</span></div>
         <div class="stat-pill"><b>Flow</b><span>自動化</span></div>
         <div class="stat-pill"><b>Note</b><span>知識管理</span></div>
       </div>
       
-      <div class="glass-card">
+      <div class="glass-card scroll-reveal sr-d1">
         <div class="icon-box">
           <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
         </div>
@@ -512,8 +570,8 @@
           <span>把靈感、筆記與專案，整理成可搜尋、可複用、持續產出的個人知識庫。</span>
         </div>
       </div>
-      
-      <div class="glass-card">
+
+      <div class="glass-card scroll-reveal sr-d2">
         <div class="icon-box">
           <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
         </div>
@@ -526,5 +584,61 @@
 
     <footer>© Allen Chan • AI Tools & Automation</footer>
   </main>
+
+  <script>
+    (function () {
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 1. Hero background parallax (0.4x scroll speed)
+      if (!reducedMotion) {
+        window.addEventListener('scroll', function () {
+          document.body.style.setProperty('--parallax-y', (window.scrollY * 0.4) + 'px');
+        }, { passive: true });
+      }
+
+      // 2. Intersection Observer fallback for .scroll-reveal
+      //    (fires only when CSS Scroll-Driven Animations is NOT supported)
+      var supportsViewTimeline = CSS && CSS.supports &&
+        CSS.supports('animation-timeline', 'view()');
+      if (!supportsViewTimeline && !reducedMotion) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var el = entry.target;
+              var delay = el.classList.contains('sr-d1') ? 70
+                        : el.classList.contains('sr-d2') ? 140 : 0;
+              setTimeout(function () { el.classList.add('revealed'); }, delay);
+              io.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.scroll-reveal').forEach(function (el) {
+          io.observe(el);
+        });
+      }
+
+      // 3. Follower count animation (fires once when badge enters view)
+      var counterEl = document.querySelector('.follower-count');
+      if (counterEl && !reducedMotion) {
+        var target = parseInt(counterEl.getAttribute('data-target') || '8800', 10);
+        var countIo = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          countIo.disconnect();
+          var startTime = performance.now();
+          var duration = 1200;
+          (function tick(now) {
+            var t = Math.min((now - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - t, 3);
+            var val = Math.floor(eased * target);
+            counterEl.textContent = val >= 1000
+              ? (val / 1000).toFixed(1) + 'K'
+              : String(val);
+            if (t < 1) requestAnimationFrame(tick);
+          })(performance.now());
+        }, { threshold: 0.5 });
+        countIo.observe(counterEl);
+      }
+    })();
+  </script>
 </body>
 </html>
