@@ -20,7 +20,7 @@ if not TOKEN:
     print("Error: THREADS_ACCESS_TOKEN not set", file=sys.stderr)
     sys.exit(1)
 
-# 1. Refresh token
+# 1. Refresh token (resets 60-day TTL; safe to call daily)
 try:
     params = urllib.parse.urlencode({'grant_type': 'th_refresh_token', 'access_token': TOKEN})
     data = api_get(f"https://graph.threads.net/refresh_access_token?{params}")
@@ -33,8 +33,8 @@ except Exception as e:
 print(f"NEW_TOKEN={new_token}")
 
 # 2. Fetch follower count via User Insights API
-#    followers_count 在 /me/threads_insights，不在 /me fields 裡
-now   = datetime.datetime.utcnow()
+#    Response shape: {"data":[{"total_value":{"value":N},...}],...}
+now   = datetime.datetime.now(datetime.timezone.utc)
 since = int((now - datetime.timedelta(days=2)).timestamp())
 until = int(now.timestamp())
 
@@ -45,22 +45,9 @@ params = urllib.parse.urlencode({
     'until':  until,
     'access_token': new_token,
 })
-data = api_get(f"https://graph.threads.net/v1.0/me/threads_insights?{params}")
+data  = api_get(f"https://graph.threads.net/v1.0/me/threads_insights?{params}")
+count = int(data['data'][0]['total_value']['value'])
 
-# Debug: print full response to see actual structure
-print(f"API response: {json.dumps(data, indent=2)}", file=sys.stderr)
-
-# Try to extract count from different possible response shapes
-entry = data['data'][0]
-if 'values' in entry:
-    count = int(entry['values'][-1]['value'])
-elif 'total_value' in entry:
-    count = int(entry['total_value']['value'])
-elif 'value' in entry:
-    count = int(entry['value'])
-else:
-    print(f"Unknown response shape: {entry}", file=sys.stderr)
-    sys.exit(1)
 display = f"{count / 1000:.1f}K" if count >= 1000 else str(count)
 print(f"Followers: {count} ({display})", file=sys.stderr)
 
