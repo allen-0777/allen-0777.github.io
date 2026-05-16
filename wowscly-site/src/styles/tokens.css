@@ -1,0 +1,18 @@
+:root {
+  --cyan:          #00d2ff;
+  --blue:          #2060ff;
+  --bg:            #05060f;
+  --text:          #c8e8ff;
+  --muted:         rgba(160,220,255,0.45);
+
+  --glass-bg:      rgba(0,180,255,0.04);
+  --glass-border:  rgba(0,210,255,0.14);
+  --glass-blur:    blur(20px) saturate(1.4);
+  --glow:          0 0 32px rgba(0,210,255,0.18);
+  --glow-hover:    0 0 48px rgba(0,210,255,0.28);
+
+  --ease-out:      cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-md:        0.55s;
+  --dur-sm:        0.35s;
+  --stagger:       0.12s;
+}

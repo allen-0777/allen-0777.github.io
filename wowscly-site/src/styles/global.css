@@ -1,0 +1,54 @@
+@import './tokens.css';
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px; z-index: 1000;
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  transform-origin: 0%;
+  transform: scaleX(0);
+  animation: grow-progress linear both;
+  animation-timeline: scroll(root);
+}
+@keyframes grow-progress { to { transform: scaleX(1); } }
+
+@supports not (animation-timeline: scroll()) {
+  .scroll-progress { display: none; }
+}
+
+section {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 120px 24px 80px;
+  position: relative; overflow: hidden;
+}
+
+.section-inner { max-width: 900px; width: 100%; }
+
+.section-label {
+  font-size: 0.62em; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--cyan); opacity: 0.6; margin-bottom: 12px; display: block;
+}
+
+.section-title {
+  font-size: clamp(1.8em, 4vw, 2.4em);
+  font-weight: 800; margin-bottom: 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
