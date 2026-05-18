@@ -9,10 +9,10 @@ import styles from './Stats.module.css'
 gsap.registerPlugin(ScrollTrigger)
 
 const stats = [
-  { target: 9800,  unit: '+', label: 'Threads 粉絲',    display: (v) => v >= 1000 ? (v/1000).toFixed(1)+'K' : String(v) },
-  { target: 50,    unit: '+', label: '完成案例',         display: (v) => String(v) },
-  { target: 98,    unit: '%', label: '客戶滿意度',       display: (v) => String(v) },
-  { target: 3,     unit: '×', label: '平均內容觸及提升', display: (v) => String(v) },
+  { target: 9800,  unit: '+', label: 'Threads 粉絲',      display: (v) => v >= 1000 ? (v/1000).toFixed(1)+'K' : String(v) },
+  { target: 20,    unit: '+', label: 'AI 實戰 Prompt',    display: (v) => String(v) },
+  { target: 50,    unit: '+', label: '教學內容篇數',        display: (v) => String(v) },
+  { target: 2,     unit: '年', label: '專注 AI 工具研究',   display: (v) => String(v) },
 ]
 
 const containerVariants = {
@@ -63,7 +63,7 @@ export default function Stats() {
   return (
     <section id="stats" ref={sectionRef} className={styles.stats}>
       <div className="section-inner">
-        <span className="section-label" style={{ textAlign: 'center', display: 'block' }}>§ 06 — Numbers</span>
+        <span className="section-label" style={{ textAlign: 'center', display: 'block' }}>§ 06 — 成績</span>
         <h2 className="section-title" style={{ textAlign: 'center' }}>數字說話</h2>
         <motion.div
           className={styles.grid}

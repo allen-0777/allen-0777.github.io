@@ -3,9 +3,21 @@ import GlassCard from '../shared/GlassCard'
 import styles from './Services.module.css'
 
 const services = [
-  { icon: '🤖', title: 'AI 內容製作', desc: '結合生成式 AI 工具，製作高品質的圖文影音內容，提升品牌在社群上的觸及與互動率。' },
-  { icon: '🎯', title: '品牌業配合作', desc: '與 AI 工具、科技品牌、新創企業進行深度合作，以真實體驗為基礎的內容行銷。' },
-  { icon: '⚡', title: 'AI 工作流顧問', desc: '協助個人與企業建立 AI 自動化工作流，提升營運效率，降低重複性工作成本。' },
+  {
+    icon: '🤖',
+    title: 'AI 工具入門教學',
+    desc: '適合 AI 小白、內容創作者、營運與中小團隊。把複雜的 AI 工具拆成你能馬上用的步驟，讓你第一週就跑出成果。',
+  },
+  {
+    icon: '💻',
+    title: 'Claude Code / 程式實戰',
+    desc: '用 AI 輔助寫程式、做工具、打造自動化原型。不需要傳統程式底子，從零到跑出第一個 AI 工具。',
+  },
+  {
+    icon: '⚡',
+    title: '企業內訓與自動化諮詢',
+    desc: '協助團隊建立 AI 工作流與內部使用 SOP，把重複性工作交給 AI，讓人專注在真正有價值的事。',
+  },
 ]
 
 const containerVariants = {
@@ -21,8 +33,8 @@ export default function Services() {
   return (
     <section id="services" className={styles.services}>
       <div className="section-inner">
-        <span className="section-label">§ 03 — Services</span>
-        <h2 className="section-title">提供哪些服務</h2>
+        <span className="section-label">§ 03 — 服務</span>
+        <h2 className="section-title">我可以幫你做什麼</h2>
         <motion.div
           className={styles.grid}
           variants={containerVariants}

@@ -18,7 +18,7 @@ export default function Contact() {
       <section id="contact" className={styles.contact}>
         <div className="section-inner">
           <div className={styles.inner}>
-            <span className="section-label" style={{ display: 'block', marginBottom: 16 }}>§ 08 — Contact</span>
+            <span className="section-label" style={{ display: 'block', marginBottom: 16 }}>§ 08 — 聯絡</span>
 
             <motion.h2
               className={styles.heading}
@@ -58,12 +58,12 @@ export default function Contact() {
               transition={{ duration: 0.55, delay: 0.5, ease: [0.2,0.8,0.2,1] }}
             >
               <motion.a
-                href="mailto:alleniverson7531@gmail.com"
+                href="mailto:wowscly@gmail.com"
                 className={styles.btnPrimary}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
               >
-                📩 寄信聯絡
+                📩 Email 聯絡
               </motion.a>
               <motion.a
                 href="https://www.threads.com/@wowscly"
@@ -72,7 +72,7 @@ export default function Contact() {
                 className={styles.btnSecondary}
                 whileHover={{ scale: 1.03 }}
               >
-                Threads @wowscly
+                🔵 Threads @wowscly
               </motion.a>
             </motion.div>
 
@@ -84,12 +84,12 @@ export default function Contact() {
               transition={{ duration: 0.5, delay: 0.65 }}
             >
               <a href="https://www.threads.com/@wowscly" className={styles.pill} target="_blank" rel="noreferrer">🔵 Threads · 9.8K</a>
-              <a href="#" className={styles.pill}>📷 Instagram</a>
+              <a href="mailto:wowscly@gmail.com" className={styles.pill}>📩 wowscly@gmail.com</a>
             </motion.div>
           </div>
         </div>
       </section>
-      <footer className={styles.footer}>© 2025 WOWSCLY. All rights reserved.</footer>
+      <footer className={styles.footer}>© 2025 WOWSCLY · 版權所有</footer>
     </>
   )
 }

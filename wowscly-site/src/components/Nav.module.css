@@ -21,3 +21,16 @@
   transition: color var(--dur-sm);
 }
 .link:hover { color: var(--cyan); }
+
+@media (max-width: 768px) {
+  .nav { padding: 12px 20px; }
+  .logo { font-size: 0.9em; letter-spacing: 0.08em; }
+  .links { gap: 0; }
+  .link { display: none; }
+  .link:last-child {
+    display: block; font-size: 0.78em;
+    color: rgba(160, 220, 255, 0.75);
+    border: 1px solid rgba(0,210,255,0.22);
+    border-radius: 100px; padding: 5px 14px;
+  }
+}

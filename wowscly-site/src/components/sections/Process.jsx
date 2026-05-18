@@ -49,7 +49,7 @@ export default function Process() {
   return (
     <section id="process" ref={sectionRef} className={styles.process}>
       <div className="section-inner">
-        <span className="section-label">§ 05 — Process</span>
+        <span className="section-label">§ 05 — 流程</span>
         <h2 className="section-title">合作流程</h2>
         <div className={styles.wrapper}>
           <svg className={styles.connectorSvg} preserveAspectRatio="none">

@@ -20,7 +20,7 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className={styles.testimonials}>
       <div className="section-inner">
-        <span className="section-label">§ 07 — Testimonials</span>
+        <span className="section-label">§ 07 — 推薦</span>
         <h2 className="section-title">合作夥伴怎麼說</h2>
         <motion.div
           className={styles.grid}

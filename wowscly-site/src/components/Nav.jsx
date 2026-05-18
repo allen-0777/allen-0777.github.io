@@ -1,7 +1,12 @@
 import { motion } from 'framer-motion'
 import styles from './Nav.module.css'
 
-const links = ['About', 'Services', 'Work', 'Contact']
+const links = [
+  { label: '關於我', href: 'about' },
+  { label: '服務', href: 'services' },
+  { label: '作品', href: 'work' },
+  { label: '聯絡', href: 'contact' },
+]
 
 export default function Nav() {
   return (
@@ -14,7 +19,7 @@ export default function Nav() {
       <a href="#hero" className={styles.logo}>WOWSCLY</a>
       <div className={styles.links}>
         {links.map((l) => (
-          <a key={l} href={`#${l.toLowerCase()}`} className={styles.link}>{l}</a>
+          <a key={l.href} href={`#${l.href}`} className={styles.link}>{l.label}</a>
         ))}
       </div>
     </motion.nav>
