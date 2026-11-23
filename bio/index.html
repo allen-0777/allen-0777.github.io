@@ -2,656 +2,316 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>WOWSCLY｜AI 工具 × 自動化</title>
-  <meta name="description" content="WOWSCLY｜用簡單方式分享 AI 工具、Claude Code、自動化與實戰案例。每週更新，全華語圈適用。" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="WOWSCLY｜AI 工具 × 自動化" />
-  <meta property="og:description" content="我把 AI 工具、Claude Code 與自動化流程，整理成一般人也能上手的實戰教學。" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WOWSCLY｜AI 團隊 · 遊戲與 3D 場景</title>
+  <meta name="description" content="我帶一個 AI 團隊，用 Claude 與 Codex 的工作流寫程式，做出遊戲和 3D 場景。" />
+  <meta property="og:title" content="WOWSCLY｜AI 團隊 · 遊戲與 3D 場景" />
+  <meta property="og:description" content="我帶一個 AI 團隊，用 Claude 與 Codex 的工作流寫程式，做出遊戲和 3D 場景。" />
   <meta property="og:image" content="https://allen-0777.github.io/bio/avatar.jpg" />
-  <meta property="og:url" content="https://allen-0777.github.io/bio/" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="WOWSCLY｜AI 工具 × 自動化" />
-  <meta name="twitter:description" content="我把 AI 工具、Claude Code 與自動化流程，整理成一般人也能上手的實戰教學。" />
-  <meta name="twitter:image" content="https://allen-0777.github.io/bio/avatar.jpg" />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet" />
   <style>
-    /* 核心變數 - Vercel / 現代科技風 */
     :root {
-      --bg-color: #000000;
-      --bg-surface: #0A0A0A;
-      --text-main: #FFFFFF;
-      --text-muted: #A1A1AA;
-
-      /* 紫藍漸層色系 */
-      --accent-start: #8B5CF6; /* Violet */
-      --accent-end: #3B82F6;   /* Blue */
-
-      /* Kinematic parallax offset (set by JS) */
-      --parallax-y: 0px;
-      
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --card-hover-border: rgba(139, 92, 246, 0.4);
-      --card-hover-glow: rgba(139, 92, 246, 0.15);
-      
-      --radius-lg: 24px;
-      --radius-md: 16px;
-      --radius-sm: 8px;
+      --earth: #2C1810;
+      --earth-2: #4A2A1C;
+      --rust: #B4442A;
+      --rust-deep: #8C2F1C;
+      --amber: #D0893A;
+      --gold: #E2B56B;
+      --cream: #F6EBDD;
+      --paper: #FBF4EA;
+      --ink: #2A1810;
+      --muted: #7A5644;
+      --line: rgba(44, 24, 16, 0.12);
+      --radius: 18px;
     }
 
-    * { 
-      box-sizing: border-box; 
-      -webkit-font-smoothing: antialiased; 
-    }
-    
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+    html, body { margin: 0; }
     body {
-      margin: 0;
       min-height: 100vh;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: var(--text-main);
-      background-color: var(--bg-color);
-      display: flex;
-      justify-content: center;
-      padding: 48px 24px;
-      position: relative;
-      overflow-x: hidden;
-      line-height: 1.6;
+      font-family: "Noto Sans TC", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: #2C1810;
+      line-height: 1.7;
     }
 
-    /* 頂部漸層光暈 */
-    body::before {
-      content: "";
+    .page-bg {
       position: absolute;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%) translateY(var(--parallax-y, 0px));
-      will-change: transform;
-      width: 100vw;
-      height: 80vh;
-      background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 40%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
+      top: 0; left: 0; right: 0;
+      height: 760px;
+      z-index: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(44, 24, 16, 0.05) 0%,
+          rgba(44, 24, 16, 0.18) 42%,
+          rgba(44, 24, 16, 0.55) 72%,
+          #2C1810 100%),
+        url("assets/maple-bg-upper.jpg") center top / cover no-repeat;
     }
 
-    /* 科技感微弱網格 */
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
-      z-index: -2;
-      pointer-events: none;
-    }
-
-    .wrap {
-      width: 100%;
-      max-width: 520px;
+    main {
       position: relative;
       z-index: 1;
+      width: min(420px, 100%);
+      margin: 0 auto;
+      padding: 64px 20px 80px;
     }
 
-    /* 動畫定義 */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-up { animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
+    .hero { text-align: center; color: var(--cream); }
 
-    /* 共用文字與漸層樣式 */
-    .gradient-text {
-      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: transparent;
-    }
-
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      margin-bottom: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .avatar-container {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      margin-bottom: 24px;
-    }
-    /* 頭像外圍發光環 */
-    .avatar-container::before {
-      content: "";
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
-      animation: spin 6s linear infinite;
-      z-index: 0;
-    }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    
     .avatar {
-      position: relative;
-      width: 100%;
-      height: 100%;
+      width: 108px;
+      height: 108px;
       border-radius: 50%;
       object-fit: cover;
-      background-color: var(--bg-surface);
-      border: 4px solid var(--bg-color);
-      z-index: 1;
+      object-position: 50% 18%;
+      border: 3px solid rgba(246, 235, 221, 0.92);
+      box-shadow: 0 10px 28px rgba(20, 8, 4, 0.35);
+      background: #fff;
     }
-    
-    h1 { 
-      margin: 0 0 8px; 
-      font-size: 32px; 
-      font-weight: 800; 
-      letter-spacing: -0.03em;
+
+    h1 {
+      margin: 18px 0 0;
+      font-family: "Noto Serif TC", serif;
+      font-weight: 700;
+      font-size: 34px;
+      letter-spacing: 0.12em;
+      color: #FFF8F0;
+      text-shadow: 0 2px 16px rgba(20, 8, 4, 0.35);
     }
-    .social-proof-row {
+
+    .counts {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
       justify-content: center;
+      gap: 8px;
+      margin: 14px 0 0;
+      flex-wrap: wrap;
     }
-    .social-proof {
+    .count {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 99px;
-      font-size: 13px;
-      color: var(--text-main);
-      backdrop-filter: blur(10px);
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(44, 24, 16, 0.28);
+      border: 1px solid rgba(246, 235, 221, 0.18);
+      color: var(--cream);
+      font-size: 12px;
     }
-    .social-proof span { color: var(--text-muted); }
-    
-    .tagline { 
-      margin: 20px 0 0; 
-      color: var(--text-muted); 
-      font-size: 16px; 
-      line-height: 1.6;
+    .count b { font-weight: 600; letter-spacing: 0.02em; }
+    .count svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    .tagline {
+      margin: 18px 0 0;
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(246, 235, 221, 0.92);
+      text-shadow: 0 1px 8px rgba(20, 8, 4, 0.4);
     }
 
-    /* 精簡版社群圖示 (極簡線條 Linkbio Style) */
-    .social-links {
+    .socials {
       display: flex;
       justify-content: center;
-      gap: 16px;
-      margin-top: 24px;
+      gap: 10px;
+      margin: 22px 0 0;
     }
-    .social-btn {
-      width: 48px;
-      height: 48px;
+    .socials a {
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      border: 2px solid var(--text-muted);
-      color: var(--text-muted);
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: grid;
+      place-items: center;
+      color: var(--cream);
+      background: rgba(44, 24, 16, 0.32);
+      border: 1px solid rgba(246, 235, 221, 0.22);
+      text-decoration: none;
     }
-    .social-btn:hover {
-      border-color: var(--text-main);
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 8px 24px var(--card-hover-glow);
-      transform: translateY(-3px);
-    }
-    .social-btn svg {
-      width: 22px;
-      height: 22px;
-      stroke-width: 2; /* 確保圖示線條粗細與外框一致 */
-    }
+    .socials a:hover { background: rgba(180, 68, 42, 0.7); border-color: rgba(246, 235, 221, 0.4); }
+    .socials svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-    .chips { 
-      display: flex; 
-      flex-wrap: wrap; 
-      justify-content: center; 
-      gap: 8px; 
-      margin-top: 24px; 
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 22px 0 0;
     }
     .chip {
-      padding: 6px 14px;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 99px;
-      background: rgba(255,255,255,0.02);
-      color: #E4E4E7;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    /* Section 共用 */
-    .section { margin-top: 36px; }
-    .section-title {
-      margin: 0 0 16px 4px;
+      padding: 5px 12px;
+      border-radius: 999px;
       font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      font-weight: 500;
+      color: #FFF4E6;
+      background: rgba(180, 68, 42, 0.38);
+      border: 1px solid rgba(226, 181, 107, 0.35);
     }
 
-    /* 高級毛玻璃卡片基底 */
-    .glass-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      width: 100%;
-      padding: 20px;
-      margin-bottom: 12px;
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+    .section { margin-top: 28px; }
+    .section-title {
+      margin: 0 0 12px;
+      font-family: "Noto Serif TC", serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+    }
+
+    .card, .cta, .collab {
+      display: block;
       text-decoration: none;
       color: inherit;
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    /* 互動卡片 Hover 效果 */
-    a.glass-card:hover {
-      border-color: var(--card-hover-border);
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 8px 32px var(--card-hover-glow);
-      transform: translateY(-2px);
+      background: rgba(251, 244, 234, 0.94);
+      border: 1px solid rgba(255, 248, 238, 0.7);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 28px rgba(20, 8, 4, 0.22);
     }
 
-    /* 重點 CTA (Free Prompt) */
-    .cta-card {
-      background: linear-gradient(rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05));
-      border: 1px solid rgba(139, 92, 246, 0.4);
-    }
-    .cta-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
-      background-size: 200% 200%;
-      animation: shimmer 3s infinite linear;
-      pointer-events: none;
-    }
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    .cta-card:hover {
-      border-color: var(--accent-start);
-      box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
-    }
-
-    /* Icon 容器 */
-    .icon-box { 
-      width: 44px; height: 44px; 
-      border-radius: 12px; 
-      display: flex; align-items: center; justify-content: center; 
-      background: rgba(255, 255, 255, 0.05); 
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      flex-shrink: 0; 
-      transition: all 0.3s ease;
-    }
-    .cta-card .icon-box {
-      background: rgba(139, 92, 246, 0.2);
-      color: var(--accent-start);
-      border-color: rgba(139, 92, 246, 0.3);
-    }
-    a.glass-card:hover .icon-box {
-      background: var(--text-main);
-      color: var(--bg-color);
-    }
-    
-    .icon-box svg { width: 22px; height: 22px; stroke-width: 1.5; }
-    .icon-box img { width: 30px; height: 30px; object-fit: contain; }
-
-    /* 文字內容 */
-    .content-box { flex: 1; }
-    .glass-card b { 
-      display: block; 
-      font-size: 15px; 
-      font-weight: 600; 
-      margin-bottom: 4px;
-      color: #FAFAFA;
-    }
-    .cta-card b {
-      background: linear-gradient(135deg, #fff, #a1a1aa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .glass-card span { 
-      display: block; 
-      color: var(--text-muted); 
-      font-size: 13.5px; 
-      line-height: 1.5; 
-    }
-
-    /* 純文字介紹區塊 */
-    .intro-block {
-      padding: 24px;
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-      color: var(--text-muted);
-      font-size: 14.5px;
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-    .intro-block b { 
-      color: var(--text-main); 
-      font-size: 16px; 
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    /* 數據/方向統計區塊 */
-    .stats-grid { 
-      display: grid; 
-      grid-template-columns: repeat(3, 1fr); 
-      gap: 12px; 
-      margin-bottom: 16px; 
-    }
-    .stat-pill { 
-      padding: 16px 12px; 
-      text-align: center; 
-      border-radius: var(--radius-md); 
-      border: 1px solid var(--card-border); 
-      background: var(--card-bg); 
+    .cta {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 14px;
+      padding: 16px 16px 16px 14px;
     }
-    .stat-pill b { 
-      font-size: 18px; 
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--text-main), var(--text-muted));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .cta-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      background: #F3D9C0;
+      color: var(--rust-deep);
+      flex-shrink: 0;
     }
-    .stat-pill span { 
-      margin-top: 4px; 
-      color: var(--text-muted); 
-      font-size: 12px; 
-      font-weight: 500;
+    .cta-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .cta b { display: block; font-size: 15px; font-weight: 600; color: var(--ink); }
+    .cta span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .cta .arrow { margin-left: auto; color: var(--muted); opacity: 0.7; }
+
+    .works { display: grid; gap: 12px; }
+    .work { overflow: hidden; }
+    .work img {
+      display: block;
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: #3A2116;
+    }
+    .work-body { padding: 12px 14px 14px; }
+    .work-body b { display: block; font-size: 16px; font-weight: 600; }
+    .work-body p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+    .work-body .go { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--rust-deep); }
+
+    .collab { padding: 18px 16px 20px; }
+    .collab h2 { margin: 0 0 8px; font-family: "Noto Serif TC", serif; font-size: 18px; }
+    .collab p { margin: 0; font-size: 14px; color: var(--muted); }
+    .collab a.mail {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: var(--rust);
+      color: #FFF8F0;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .collab a.mail:hover { background: var(--rust-deep); }
+
+    footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(246, 235, 221, 0.72);
     }
 
-    footer { 
-      text-align: center; 
-      color: #52525B; 
-      font-size: 13px; 
-      padding: 48px 0 24px; 
-      font-weight: 500;
-    }
-
-    /* SVG 基礎樣式 */
-    svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
-
-    @media (max-width: 480px) {
-      body { padding: 32px 16px; }
-      h1 { font-size: 28px; }
-      .stats-grid { gap: 8px; }
-      .stat-pill { padding: 12px 8px; }
-      .stat-pill b { font-size: 16px; }
-    }
-
-    /* ── Kinematic Scroll Animations ────────────────────────── */
-
-    /* Scroll progress bar (CSS Scroll Timeline) */
-    .scroll-progress {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 2px; z-index: 999;
-      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
-      transform-origin: 0%;
-      transform: scaleX(0);
-      animation: grow-progress linear both;
-      animation-timeline: scroll();
-    }
-    @keyframes grow-progress { to { transform: scaleX(1); } }
-
-    /* Scroll-driven element entrance (CSS scroll-driven) */
-    @keyframes reveal-up {
-      from { opacity: 0; transform: translateY(40px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0)   scale(1); }
-    }
-    .scroll-reveal {
-      animation: reveal-up 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 28%;
-    }
-
-    /* Fallback: Intersection Observer (older browsers) */
-    @supports not (animation-timeline: view()) {
-      .scroll-reveal {
-        opacity: 0;
-        transform: translateY(40px) scale(0.97);
-        transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-                    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-      }
-      .scroll-reveal.revealed {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      .scroll-reveal.sr-d1 { transition-delay: 70ms; }
-      .scroll-reveal.sr-d2 { transition-delay: 140ms; }
-    }
-
-    /* Respect reduced-motion preference */
     @media (prefers-reduced-motion: reduce) {
-      .scroll-progress { display: none; }
-      .scroll-reveal {
-        animation: none !important;
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
+      * { transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="scroll-progress" aria-hidden="true"></div>
-  <div class="grid-bg"></div>
-  <main class="wrap">
-
-    <!-- Hero Section -->
-    <section class="hero animate-up">
-      <div class="avatar-container">
-        <!-- 確保同層目錄下有 avatar.jpg -->
-        <img class="avatar" src="avatar.jpg" alt="WOWSCLY" onerror="this.src='https://ui-avatars.com/api/?name=WOWSCLY&background=0A0A0A&color=FFFFFF&size=220'" />
-      </div>
-      <h1 class="gradient-text">WOWSCLY</h1>
-      <div class="social-proof-row">
-        <div class="social-proof">
-          <svg width="14" height="14" viewBox="0 0 24 24" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Threads <span>· <span class="follower-count" data-target="11984">12.0K</span></span>
+  <div class="page-bg" aria-hidden="true"></div>
+  <main>
+    <section class="hero">
+      <img class="avatar" src="assets/avatar.jpg" alt="WOWSCLY" width="108" height="108" />
+      <h1>WOWSCLY</h1>
+      <div class="counts">
+        <div class="count">
+          <svg viewBox="0 0 24 24"><path d="M19 7.5c-1.333-3-3.667-4.5-7-4.5-5 0-8 2.5-8 9s3.5 9 8 9 7-3 7-5-1-5-7-5c-2.5 0-3 1.25-3 2.5 0 1.5 1 2.5 2.5 2.5 2.5 0 3.5-1.5 3.5-5s-2-4-3-4-1.833.333-2.5 1"/></svg>
+          Threads · <b><span class="follower-count" data-target="11984">12.0K</span></b>
         </div>
-        <div class="social-proof">
-          <svg width="14" height="14" viewBox="0 0 24 24" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-          Instagram <span>· <span class="ig-follower-count" data-target="0">---</span></span>
+        <div class="count">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          Instagram · <b><span class="ig-follower-count" data-target="40900">40.9K</span></b>
         </div>
       </div>
-      <p class="tagline">我把 AI 工具、Claude Code 與自動化流程，<br>整理成一般人也能上手的實戰教學。</p>
-      
-      <!-- 精簡版社群圖示 -->
-      <div class="social-links">
-        <a href="mailto:wowscly@gmail.com" class="social-btn" aria-label="Email">
+      <p class="tagline">我帶一個 AI 團隊，用 Claude 與 Codex 的工作流寫程式，做出遊戲和 3D 場景。</p>
+      <div class="socials">
+        <a href="mailto:wowscly@gmail.com" aria-label="電子郵件">
           <svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         </a>
-        <a href="https://www.threads.net/@wowscly" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Threads">
-          <svg viewBox="0 0 24 24"><path d="M19 7.5c-1.333 -3 -3.667 -4.5 -7 -4.5c-5 0 -8 2.5 -8 9s3.5 9 8 9s7 -3 7 -5s-1 -5 -7 -5c-2.5 0 -3 1.25 -3 2.5c0 1.5 1 2.5 2.5 2.5c2.5 0 3.5 -1.5 3.5 -5s-2 -4 -3 -4s-1.833 .333 -2.5 1" /></svg>
+        <a href="https://www.threads.net/@wowscly" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+          <svg viewBox="0 0 24 24"><path d="M19 7.5c-1.333-3-3.667-4.5-7-4.5-5 0-8 2.5-8 9s3.5 9 8 9 7-3 7-5-1-5-7-5c-2.5 0-3 1.25-3 2.5 0 1.5 1 2.5 2.5 2.5 2.5 0 3.5-1.5 3.5-5s-2-4-3-4-1.833.333-2.5 1"/></svg>
+        </a>
+        <a href="https://www.instagram.com/wowscly/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://github.com/allen-0777" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S9.03 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
         </a>
       </div>
-
       <div class="chips">
-        <div class="chip">AI 工具</div>
-        <div class="chip">Claude Code</div>
-        <div class="chip">自動化工作流</div>
-        <div class="chip">Obsidian 知識管理</div>
+        <div class="chip">AI 團隊</div>
+        <div class="chip">Claude / Codex</div>
+        <div class="chip">遊戲</div>
+        <div class="chip">3D 場景</div>
       </div>
     </section>
 
-    <!-- 主推 Lead Magnet (CTA) -->
-    <section class="section animate-up delay-1">
-      <a class="glass-card cta-card" href="/bio/prompts">
-        <div class="icon-box">
+    <section class="section">
+      <a class="cta" href="prompts.html">
+        <div class="cta-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
-        <div class="content-box">
+        <div>
           <b>領取 20 個 AI 實戰 Prompt 清單</b>
-          <span style="color: rgba(255,255,255,0.7);">免費取用，無需登入即可查看</span>
+          <span>免費取用，不用登入</span>
         </div>
-        <!-- 箭頭 Icon -->
-        <div style="opacity: 0.5; align-self: center;">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </div>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </section>
 
-    <!-- 服務介紹 -->
     <section class="section">
-      <h2 class="section-title scroll-reveal">Services</h2>
-      <div class="intro-block scroll-reveal">
-        <b>把 AI 變成你真的用得上的工作能力。</b>
-        從 ChatGPT、Claude Code、Codex、Gemini 到自動化流程，我專注在「普通人看得懂、團隊用得起來、工作真的省時間」的 AI 實戰應用。
+      <h2 class="section-title">作品</h2>
+      <div class="works">
+        <a class="work card" href="https://leek-park-3d.vercel.app" target="_blank" rel="noopener noreferrer">
+          <img src="assets/leek-park.jpg" alt="韭菜公園俯瞰畫面" width="380" height="190" />
+          <div class="work-body">
+            <b>韭菜公園</b>
+            <p>用 AI 寫成的 3D 公園，可以進去散步。</p>
+            <span class="go">打開作品 →</span>
+          </div>
+        </a>
+        <article class="work card">
+          <img src="assets/maple-poster.jpg" alt="楓葉季 3D 楓林許願牆" width="380" height="190" />
+          <div class="work-body">
+            <b>楓葉季</b>
+            <p>用 Claude 做出的 3D 楓林許願牆，留下願望就會化成一片發光的楓葉。</p>
+          </div>
+        </article>
       </div>
-      
-      <a class="glass-card scroll-reveal" href="ai-basics.html">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
-        </div>
-        <div class="content-box">
-          <b>AI 工具入門教學</b>
-          <span>適合 AI 小白、內容創作者、營運與中小團隊</span>
-        </div>
-      </a>
-
-      <a class="glass-card scroll-reveal sr-d1" href="claude-code.html">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
-        <div class="content-box">
-          <b>Claude Code / 程式實戰</b>
-          <span>用 AI 輔助寫程式、做工具、打造自動化原型</span>
-        </div>
-      </a>
-      
-      <a class="glass-card scroll-reveal sr-d2" href="mailto:wowscly@gmail.com">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        </div>
-        <div class="content-box">
-          <b>企業內訓與自動化諮詢</b>
-          <span>協助團隊建立 AI 工作流與內部使用 SOP</span>
-        </div>
-      </a>
     </section>
 
-    <!-- 內容方向 -->
     <section class="section">
-      <h2 class="section-title scroll-reveal">Focus</h2>
-      <div class="stats-grid scroll-reveal">
-        <div class="stat-pill"><b>AI</b><span>工具研究</span></div>
-        <div class="stat-pill"><b>Flow</b><span>自動化</span></div>
-        <div class="stat-pill"><b>Note</b><span>知識管理</span></div>
-      </div>
-      
-      <div class="glass-card scroll-reveal sr-d1">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        </div>
-        <div class="content-box">
-          <b>Obsidian 內容整理系統</b>
-          <span>把靈感、筆記與專案，整理成可搜尋、可複用、持續產出的個人知識庫。</span>
-        </div>
-      </div>
-
-      <div class="glass-card scroll-reveal sr-d2">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-        </div>
-        <div class="content-box">
-          <b>從筆記到內容產出</b>
-          <span>用 Obsidian 建立選題庫、Prompt 庫與發布流程，讓日常學習變成穩定資產。</span>
-        </div>
+      <div class="collab">
+        <h2>合作／業配</h2>
+        <p>若想討論合作或業配，請來信。目前先留下聯絡方式，細節再另外談。</p>
+        <a class="mail" href="mailto:wowscly@gmail.com">wowscly@gmail.com</a>
       </div>
     </section>
 
-    <footer>© WOWSCLY • AI Tools & Automation</footer>
+    <footer>© WOWSCLY</footer>
   </main>
-
-  <script>
-    (function () {
-      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      // 1. Hero background parallax (0.4x scroll speed)
-      if (!reducedMotion) {
-        window.addEventListener('scroll', function () {
-          document.body.style.setProperty('--parallax-y', (window.scrollY * 0.4) + 'px');
-        }, { passive: true });
-      }
-
-      // 2. Intersection Observer fallback for .scroll-reveal
-      //    (fires only when CSS Scroll-Driven Animations is NOT supported)
-      var supportsViewTimeline = CSS && CSS.supports &&
-        CSS.supports('animation-timeline', 'view()');
-      if (!supportsViewTimeline && !reducedMotion) {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              var el = entry.target;
-              var delay = el.classList.contains('sr-d1') ? 70
-                        : el.classList.contains('sr-d2') ? 140 : 0;
-              setTimeout(function () { el.classList.add('revealed'); }, delay);
-              io.unobserve(el);
-            }
-          });
-        }, { threshold: 0.12 });
-        document.querySelectorAll('.scroll-reveal').forEach(function (el) {
-          io.observe(el);
-        });
-      }
-
-      // 3. Follower count animations (Threads + Instagram)
-      function animateCounter(el) {
-        if (!el || reducedMotion) return;
-        var target = parseInt(el.getAttribute('data-target') || '0', 10);
-        if (target === 0) return;   // skip if not yet populated
-        var io = new IntersectionObserver(function (entries) {
-          if (!entries[0].isIntersecting) return;
-          io.disconnect();
-          var startTime = performance.now();
-          var duration = 1200;
-          (function tick(now) {
-            var t = Math.min((now - startTime) / duration, 1);
-            var eased = 1 - Math.pow(1 - t, 3);
-            var val = Math.floor(eased * target);
-            el.textContent = val >= 1000 ? (val / 1000).toFixed(1) + 'K' : String(val);
-            if (t < 1) requestAnimationFrame(tick);
-          })(performance.now());
-        }, { threshold: 0.5 });
-        io.observe(el);
-      }
-      animateCounter(document.querySelector('.follower-count'));
-      animateCounter(document.querySelector('.ig-follower-count'));
-    })();
-  </script>
 </body>
 </html>

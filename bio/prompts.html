@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet" />
   <title>20 個 AI 實戰 Prompt 清單｜Allen Chan</title>
   <meta name="description" content="不需要會寫程式。從 AI 小白到會用 AI 工作，20 個可以直接貼入 Claude 或 ChatGPT 的實戰 Prompt。" />
   
@@ -15,24 +17,24 @@
   <style>
     /* 核心變數 - 與首頁完全同步 */
     :root {
-      --bg-color: #000000;
-      --bg-surface: #0A0A0A;
-      --text-main: #FFFFFF;
-      --text-muted: #A1A1AA;
+      --bg-color: #2C1810;
+      --bg-surface: #3A2116;
+      --text-main: #F6EBDD;
+      --text-muted: #C9A78A;
       
       /* 紫藍漸層色系 */
-      --accent-start: #8B5CF6;
-      --accent-end: #3B82F6;
+      --accent-start: #D0893A;
+      --accent-end: #B4442A;
       
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --card-hover-border: rgba(139, 92, 246, 0.4);
-      --card-hover-glow: rgba(139, 92, 246, 0.15);
+      --card-bg: rgba(251, 244, 234, 0.08);
+      --card-border: rgba(246, 235, 221, 0.16);
+      --card-hover-border: rgba(208, 137, 58, 0.5);
+      --card-hover-glow: rgba(180, 68, 42, 0.18);
       
       /* Level 主題色 */
-      --color-l1: #10B981; /* Emerald Green */
-      --color-l2: #3B82F6; /* Blue */
-      --color-l3: #8B5CF6; /* Violet */
+      --color-l1: #C45C26; /* Emerald Green */
+      --color-l2: #D0893A; /* Blue */
+      --color-l3: #8C2F1C; /* Violet */
 
       --radius-lg: 24px;
       --radius-md: 16px;
@@ -44,7 +46,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Noto Sans TC", system-ui, -apple-system, sans-serif;
       color: var(--text-main);
       background-color: var(--bg-color);
       display: flex;
@@ -55,26 +57,16 @@
       line-height: 1.6;
     }
 
-    /* 背景特效 */
     body::before {
       content: "";
-      position: absolute;
-      top: -10%; left: 50%;
-      transform: translateX(-50%);
-      width: 100vw; height: 60vh;
-      background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.05) 40%, transparent 70%);
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(44,24,16,0.35) 0%, rgba(44,24,16,0.72) 45%, #2C1810 100%),
+        url("assets/maple-bg-upper.jpg") center top / cover no-repeat;
       pointer-events: none; z-index: -1;
     }
-    .grid-bg {
-      position: fixed; inset: 0;
-      background-size: 40px 40px;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
-      mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
-      z-index: -2; pointer-events: none;
-    }
+    .grid-bg { display: none; }
 
     .wrap { width: 100%; max-width: 640px; position: relative; z-index: 1; }
 
@@ -326,7 +318,7 @@
   <main class="wrap">
 
     <div class="animate-up">
-      <a class="back-link" href="/bio/">
+      <a class="back-link" href="index.html">
         <svg width="18" height="18" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
         返回首頁
       </a>
